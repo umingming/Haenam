@@ -3,12 +3,14 @@ const methodOverride = require("method-override");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
-const flash = require("express-flash");
+const flash = require("connect-flash");
+
 const MongoClient = require("mongodb").MongoClient;
 const app = express();
 var db;
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.use(session({ secret: "1234", resave: true, saveUninitialized: false }));
@@ -23,8 +25,10 @@ MongoClient.connect(process.env.DB_URL, function (err, client) {
     db = client.db("todoapp");
     console.log("Connected to database");
 
-    const loginRouter = require("./routes/login");
+    const loginRouter = require("./routes/login")(db);
+    const postRouter = require("./routes/post")(db);
     app.use("/api", loginRouter);
+    app.use("/api/post", postRouter);
 
     app.listen(process.env.PORT, () => {
         console.log("Server is running on port", process.env.PORT);
@@ -44,16 +48,10 @@ passport.use(
                 if (err) return done(err);
 
                 if (!result) {
-                    const message = "유효하지 않은 아이디";
-                    console.log("로그인 실패:", message);
-                    return done(null, false, { message });
+                    return done(null, false, "id");
                 } else if (pw !== result.pw) {
-                    const message = "유효하지 않은 비밀번호";
-                    console.log("로그인 실패:", message);
-                    return done(null, false, { message });
+                    return done(null, false, "pw");
                 }
-
-                console.log("로그인 성공");
                 return done(null, result);
             });
         }
