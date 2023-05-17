@@ -17,7 +17,7 @@ const getters = {
 const actions = {
     async FETCH_JOURNALS({ commit }) {
         try {
-            const { data } = await journal.get();
+            const { data } = await journal.get({});
             if (data) {
                 commit("SET_JOURNALS", data);
             }

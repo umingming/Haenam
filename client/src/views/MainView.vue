@@ -3,7 +3,10 @@
         <div>
             <h2>{{ dailyIso }}</h2>
         </div>
-        <div v-for="journal of dailyJournals" :key="journal._id"></div>
+        <div v-for="journal of dailyJournals" :key="journal._id">
+            <input type="checkbox" v-model="journal.checked" />
+            <input type="text" :id="journal._id" :value="journal.content" />
+        </div>
     </div>
 </template>
 
@@ -29,20 +32,13 @@ export default {
             return journals;
         },
     },
-    created() {
-        this.init();
-    },
     methods: {
         ...mapActions("journal", [
-            "FETCH_JOURNALS",
             "ADD_JOURNAL",
             "EDIT_JOURNAL",
             "REMOVE_JOURNAL",
             "SELECT_JOURNAL",
         ]),
-        async init() {
-            await this.FETCH_JOURNALS();
-        },
     },
 };
 </script>
