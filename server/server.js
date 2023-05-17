@@ -27,8 +27,10 @@ MongoClient.connect(process.env.DB_URL, function (err, client) {
 
     const loginRouter = require("./routes/login")(db);
     const postRouter = require("./routes/post")(db);
+    const journalRouter = require("./routes/journal")(db);
     app.use("/api", loginRouter);
     app.use("/api/post", postRouter);
+    app.use("/api/journal", journalRouter);
 
     app.listen(process.env.PORT, () => {
         console.log("Server is running on port", process.env.PORT);
