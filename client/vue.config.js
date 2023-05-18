@@ -2,7 +2,7 @@ module.exports = {
     devServer: {
         proxy: {
             "/api": {
-                target: "http://localhost:8007",
+                target: "https://natural-oath-386805.du.r.appspot.com",
                 changeOrigin: true,
                 pathRewrite: {
                     "^/api": "",
