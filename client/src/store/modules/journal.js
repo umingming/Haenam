@@ -7,7 +7,7 @@ const state = () => ({
 
 const getters = {
     getJournals(state) {
-        return state.journals;
+        return JSON.parse(JSON.stringify(state.journals));
     },
     getSelectedJournal(state) {
         return state.selectedJournal;

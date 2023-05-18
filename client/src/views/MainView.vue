@@ -1,17 +1,28 @@
 <template>
     <div>
-        <div>
-            <h2>{{ dailyIso }}</h2>
+        <div class="title">
+            <button @click="updateDate(-1)">
+                <i class="fa-solid fa-angle-left"></i>
+            </button>
+            <h2>{{ dailyFormat }}</h2>
+            <button @click="updateDate(1)">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
         </div>
-        <div v-for="journal of dailyJournals" :key="journal._id">
-            <input type="checkbox" v-model="journal.checked" />
-            <input type="text" :id="journal._id" :value="journal.content" />
+        <div>
+            <div v-for="journal of dailyJournals" :key="journal._id">
+                <input type="checkbox" v-model="journal.checked" />
+                <input type="text" :id="journal._id" :value="journal.content" />
+            </div>
+            <div>
+                <input type="text" />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
     name: "MainView",
     data() {
@@ -20,27 +31,43 @@ export default {
         };
     },
     computed: {
-        ...mapGetters("journal", ["getJournals", "getSelectedJournal"]),
-        dailyIso() {
+        ...mapGetters("journal", ["getJournals"]),
+        dailyFormat() {
             const date = this.selectedDate || new Date();
-            return date.toISOString().substring(0, 10);
+            const formatDate = (date) => date.toISOString().slice(0, 10);
+
+            return formatDate(date);
         },
         dailyJournals() {
             const journals = this.getJournals.filter((i) =>
-                i.date.startsWith(this.dailyIso)
+                i.date.startsWith(this.dailyFormat)
             );
             return journals;
         },
     },
     methods: {
-        ...mapActions("journal", [
-            "ADD_JOURNAL",
-            "EDIT_JOURNAL",
-            "REMOVE_JOURNAL",
-            "SELECT_JOURNAL",
-        ]),
+        updateDate(amount) {
+            const date = this.selectedDate.getDate() + amount;
+            this.selectedDate = new Date(this.selectedDate.setDate(date));
+        },
     },
 };
 </script>
 
-<style></style>
+<style>
+.title h2 {
+    display: inline-block;
+}
+.title button {
+    position: relative;
+    top: -3px;
+    background: none;
+    border: none;
+    margin: 0 8px;
+    cursor: pointer;
+    color: #c2c2c2;
+}
+.title button:hover {
+    color: #44b365;
+}
+</style>
