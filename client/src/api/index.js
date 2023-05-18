@@ -6,5 +6,5 @@ function create(url, options) {
     setInterceptors(instance);
     return instance;
 }
-
-export const apiInstance = create("");
+const baseURL = "http://localhost:8007";
+export const apiInstance = create(baseURL);

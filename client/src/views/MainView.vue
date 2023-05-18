@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
     name: "MainView",
     data() {
@@ -64,6 +64,7 @@ export default {
         };
     },
     computed: {
+        ...mapState(["userId"]),
         ...mapGetters("journal", ["getJournals"]),
         dailyFormat() {
             const formatDate = (date) => date.toISOString().slice(0, 10);

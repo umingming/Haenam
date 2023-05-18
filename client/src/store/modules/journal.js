@@ -18,7 +18,8 @@ const getters = {
 const actions = {
     async FETCH_JOURNALS({ commit }) {
         try {
-            const { data } = await journal.get({});
+            const user_id = localStorage.getItem("user_id");
+            const { data } = await journal.get({ user_id });
             if (data) {
                 commit("SET_JOURNALS", data);
             }

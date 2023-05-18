@@ -1,8 +1,8 @@
 import { apiInstance } from "./index.js";
-const path = "/api/journal";
+const path = "/journal";
 
-function get(data) {
-    return apiInstance.get(path, data);
+function get(params) {
+    return apiInstance.get(path, { params });
 }
 function add(data) {
     return apiInstance.post(path, data);

@@ -1,8 +1,9 @@
 module.exports = {
+    publicPath: "/",
     devServer: {
         proxy: {
             "/api": {
-                target: "https://haenam-387106.du.r.appspot.com",
+                target: "http://localhost:8007",
                 changeOrigin: true,
                 pathRewrite: {
                     "^/api": "",

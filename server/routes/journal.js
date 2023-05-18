@@ -2,9 +2,7 @@ var router = require("express").Router();
 
 module.exports = function (db) {
     router.get("/", (req, res) => {
-        console.log(req);
-        const user_id = req.user._id;
-        if (!user_id) return res.status(401).json();
+        const { user_id } = req.query;
 
         db.collection("journal")
             .find({ user_id })
@@ -14,7 +12,7 @@ module.exports = function (db) {
     });
 
     router.post("/", (req, res) => {
-        const user_id = req.user._id;
+        const { user_id } = req.query;
         const { content, date } = req.body;
 
         db.collection("counter").findOne({ name: "journal" }, (err, result) => {
@@ -51,8 +49,7 @@ module.exports = function (db) {
 
     router.delete("/:id", (req, res) => {
         const _id = +req.params.id;
-        const user_id = req.user._id;
-        db.collection("journal").deleteOne({ _id, user_id }, (err, result) => {
+        db.collection("journal").deleteOne({ _id }, (err, result) => {
             if (err) console.log(err);
             return res.status(200).json(result);
         });

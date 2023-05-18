@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import common from "@/api/common.js";
 export default {
     name: "LoginView",
@@ -21,12 +22,14 @@ export default {
         };
     },
     methods: {
+        ...mapMutations(["SET_USER_ID"]),
         async login() {
             try {
-                await common.login({
+                const { data } = await common.login({
                     id: this.id,
                     pw: this.pw,
                 });
+                localStorage.setItem("user_id", data.user_id);
                 this.$router.push("/main");
             } catch (error) {
                 console.log(error);
