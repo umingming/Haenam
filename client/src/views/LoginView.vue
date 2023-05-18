@@ -12,7 +12,6 @@
 
 <script>
 import common from "@/api/common.js";
-import { mapActions } from "vuex";
 export default {
     name: "LoginView",
     data() {
@@ -22,14 +21,12 @@ export default {
         };
     },
     methods: {
-        ...mapActions("journal", ["FETCH_JOURNALS"]),
         async login() {
             try {
                 await common.login({
                     id: this.id,
                     pw: this.pw,
                 });
-                await this.FETCH_JOURNALS();
                 this.$router.push("/main");
             } catch (error) {
                 console.log(error);

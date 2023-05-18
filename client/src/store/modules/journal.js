@@ -1,6 +1,7 @@
 import journal from "@/api/journal.js";
+import { reactive } from "vue";
 
-const state = () => ({
+const state = reactive({
     journals: [],
     selectedJournal: {},
 });
@@ -69,7 +70,7 @@ const mutations = {
         state.selectedJournal = state.journals[index];
     },
     REMOVE_JOURNAL(state, _id) {
-        const index = state.journals.findIndex((i) => i._id === _id);
+        const index = state.journals.findIndex((i) => i._id == _id);
         state.journals.splice(index, 1);
     },
     SELECT_JOURNAL(state, data) {
