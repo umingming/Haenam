@@ -171,6 +171,7 @@ button:hover {
     transform: translate(-3px, 2px);
     z-index: 1;
     accent-color: #33a054;
+    cursor: pointer;
 }
 .journal input[type="text"] {
     border: none;

@@ -68,6 +68,6 @@ MongoClient.connect(process.env.DB_URL, function (err, client) {
     app.use("/journal", journalRouter);
 
     app.listen(process.env.PORT, () => {
-        console.log("Server is running on port", process.env.PORT);
+        console.log("Haenam Server is running on port", process.env.PORT);
     });
 });

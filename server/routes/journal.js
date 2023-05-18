@@ -3,7 +3,7 @@ var router = require("express").Router();
 module.exports = function (db) {
     router.get("/", (req, res) => {
         console.log(req);
-        const user_id = req.user?._id;
+        const user_id = req.user._id;
         if (!user_id) return res.status(401).json();
 
         db.collection("journal")
@@ -14,7 +14,7 @@ module.exports = function (db) {
     });
 
     router.post("/", (req, res) => {
-        const user_id = req.user?._id;
+        const user_id = req.user._id;
         const { content, date } = req.body;
 
         db.collection("counter").findOne({ name: "journal" }, (err, result) => {
