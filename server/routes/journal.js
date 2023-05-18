@@ -12,8 +12,7 @@ module.exports = function (db) {
     });
 
     router.post("/", (req, res) => {
-        const { user_id } = req.query;
-        const { content, date } = req.body;
+        const { user_id, content, date } = req.body;
 
         db.collection("counter").findOne({ name: "journal" }, (err, result) => {
             if (err) console.log(err);
