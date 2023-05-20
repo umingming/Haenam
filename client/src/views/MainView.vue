@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="box">
         <div class="title">
             <button @click="updateDate(-1)">
                 <i class="fa-solid fa-angle-left"></i>
