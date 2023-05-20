@@ -8,6 +8,10 @@
             <label for="pw">Password</label>
             <input type="text" id="pw" v-model="pw" />
         </div>
+        <div class="login-keep">
+            <input type="checkbox" id="keep-check" v-model="keepLoggedIn" />
+            <label for="keep-check">로그인 상태 유지</label>
+        </div>
         <button @click="login">Sign In</button>
     </div>
 </template>
@@ -20,6 +24,7 @@ export default {
         return {
             id: "",
             pw: "",
+            keepLoggedIn: false,
         };
     },
     methods: {
@@ -30,7 +35,13 @@ export default {
                     id: this.id,
                     pw: this.pw,
                 });
-                localStorage.setItem("user_id", data.user_id);
+
+                if (this.keepLoggedIn) {
+                    localStorage.setItem("user_id", data.user_id);
+                } else {
+                    sessionStorage.setItem("user_id", data.user_id);
+                }
+
                 this.$router.push("/main");
             } catch (error) {
                 console.log(error);

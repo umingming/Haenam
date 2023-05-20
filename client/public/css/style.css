@@ -53,10 +53,24 @@
     font-size: larger;
     color: rgb(73, 120, 250);
 }
+#login #login-left #login-select {
+    position: relative;
+    text-align: right;
+    margin: 10px 20px;
+}
+#login #login-left #login-select button {
+    margin: 0 5px;
+    background: none;
+    border: none;
+    color: #858585;
+}
+#login #login-left #login-select button:first-child {
+    color: rgb(73, 120, 250);
+}
 #login #login-left #login-form {
     position: relative;
     width: calc(100% -100px);
-    padding: 50px;
+    padding: 10px 50px;
 }
 #login #login-left #login-form .login-text label {
     display: block;
@@ -71,10 +85,22 @@
     width: 93%;
     height: 30px;
     margin-bottom: 15px;
+    font-size: 20px;
+    line-height: 30px;
     padding: 0 10px;
-    border: 1px solid #858585;
+    border: 1px solid #a7a7a7;
     border-radius: 3px;
     outline: none;
+}
+#login #login-left #login-form .login-keep {
+    text-align: left;
+}
+#login #login-left #login-form .login-keep label {
+    position: relative;
+    top: -1px;
+    color: #858585;
+    margin-left: 5px;
+    font-size: small;
 }
 #login #login-left #login-form button {
     position: relative;
@@ -92,4 +118,8 @@
     outline: none;
     color: white;
     cursor: pointer;
+}
+
+.box#main {
+    text-align: center;
 }
