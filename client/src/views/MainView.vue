@@ -46,7 +46,7 @@
                 <input
                     type="text"
                     id="pending-journal"
-                    @keydown.enter="addJournal"
+                    @keyup.enter="addJournal"
                 />
             </div>
         </div>
@@ -73,7 +73,7 @@ export default {
         },
         dailyJournals() {
             const journals = this.getJournals.filter((i) =>
-                i.date.startsWith(this.dailyFormat)
+                i?.date.startsWith(this.dailyFormat)
             );
             return journals;
         },
