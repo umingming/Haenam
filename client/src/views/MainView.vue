@@ -2,27 +2,21 @@
     <div id="main" class="box">
         <header>
             <h1 id="logo">{{ logo }}</h1>
-            <button @click="signOut">Sign Out</button>
+            <base-button name="signOut" @click="signOut"></base-button>
         </header>
         <div class="title">
-            <button @click="updateDate(-1)">
-                <i class="fa-solid fa-angle-left"></i>
-            </button>
+            <base-button name="left" @click="updateDate(-1)"></base-button>
             <h2>{{ dailyFormat }}</h2>
-            <button @click="updateDate(1)">
-                <i class="fa-solid fa-angle-right"></i>
-            </button>
+            <base-button name="right" @click="updateDate(1)"></base-button>
         </div>
-        <div>
+        <div class="journal-list">
             <div
                 v-for="journal of dailyJournals"
                 :key="journal._id"
                 class="journal"
                 :class="{ on: isSelectedJournal(journal) }"
             >
-                <button class="button-edit" @click="editJournal()">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button>
+                <base-button name="edit" @click="editJournal()"></base-button>
                 <input
                     type="checkbox"
                     v-model="journal.checked"
@@ -33,34 +27,30 @@
                     :data-id="journal._id"
                     v-model="journal.content"
                     @focus="selectJournal(journal)"
-                    @keydown.enter="editJournal()"
-                    @keydown.backspace="handleBackspaceInput"
+                    @keyup.enter="editJournal()"
+                    @keyup.backspace="handleBackspaceInput"
                 />
-                <button
-                    class="button-remove"
+                <base-button
+                    name="remove"
                     @click="removeJournal(journal._id)"
-                >
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                ></base-button>
             </div>
-            <div class="journal pending">
-                <button class="button-add" @click="addJournal">
-                    <i class="fa-solid fa-circle-plus"></i>
-                </button>
-                <input
-                    type="text"
-                    id="pending-journal"
-                    @keyup.enter="addJournal"
-                />
-            </div>
+        </div>
+        <div class="journal pending">
+            <base-button name="add" @click="addJournal"></base-button>
+            <input type="text" id="pending-journal" @keyup.enter="addJournal" />
         </div>
     </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
+import BaseButton from "@/components/base/BaseButton.vue";
 export default {
     name: "MainView",
+    components: {
+        BaseButton,
+    },
     data() {
         return {
             selectedDate: new Date(),
@@ -176,6 +166,22 @@ export default {
     margin: 0 8px;
     font-size: 30px;
 }
+.journal-list {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 450px;
+    max-height: 70%;
+    overflow-y: scroll;
+}
+.journal-list::-webkit-scrollbar {
+    cursor: pointer;
+    width: 8px;
+}
+.journal-list::-webkit-scrollbar-thumb {
+    background: rgba(73, 120, 250, 0.303) !important;
+    border-radius: 5px;
+}
 .journal {
     height: 30px;
 }
@@ -190,6 +196,7 @@ export default {
     border-bottom: 1px solid rgba(0, 0, 0, 0.108);
     line-height: 20px;
     outline: none;
+    width: 90%;
 }
 .journal input[type="text"]:focus {
     border-bottom: 1px solid black;
@@ -218,6 +225,9 @@ export default {
 }
 .journal.pending {
     margin-top: 10px;
+}
+.journal.pending input {
+    width: 450px;
 }
 .button-add {
     position: relative;

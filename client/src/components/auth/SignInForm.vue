@@ -6,7 +6,7 @@
         </div>
         <div class="login-text">
             <label for="pw">Password</label>
-            <input type="text" id="pw" v-model="pw" />
+            <input type="password" id="pw" v-model="pw" />
         </div>
         <div class="login-keep">
             <input type="checkbox" id="keep-check" v-model="keepLoggedIn" />

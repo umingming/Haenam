@@ -3,17 +3,17 @@
         <div id="login-left">
             <h1>오늘도 <span>해냄!</span></h1>
             <div id="login-select">
-                <button
+                <base-button
                     v-for="name in formNames"
                     :key="name"
                     :class="{ on: isFormSelected(name) }"
-                    @click="showForm(name)"
+                    :name="name"
+                    @click="selectForm(name)"
                 >
-                    {{ formatFormName(name) }}
-                </button>
+                </base-button>
             </div>
-            <sign-in-form v-if="isFormSelected('SignIn')"></sign-in-form>
-            <sign-up-form v-if="isFormSelected('SignUp')"></sign-up-form>
+            <sign-in-form v-if="isFormSelected('signIn')"></sign-in-form>
+            <sign-up-form v-if="isFormSelected('signUp')"></sign-up-form>
         </div>
         <div id="login-right"></div>
     </div>
@@ -22,16 +22,18 @@
 <script>
 import SignInForm from "@/components/auth/SignInForm.vue";
 import SignUpForm from "@/components/auth/SignUpForm.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
 export default {
     name: "AuthView",
     components: {
         SignInForm,
         SignUpForm,
+        BaseButton,
     },
     data() {
         return {
-            formNames: ["SignIn", "SignUp"],
-            selectedForm: "SignIn",
+            formNames: ["signIn", "signUp"],
+            selectedForm: "signIn",
         };
     },
     computed: {
@@ -46,10 +48,7 @@ export default {
         if (userId) this.$router.push("/main");
     },
     methods: {
-        formatFormName(name) {
-            return name.replace(/([a-z])([A-Z])/g, "$1 $2");
-        },
-        showForm(name) {
+        selectForm(name) {
             this.selectedForm = name;
         },
     },
