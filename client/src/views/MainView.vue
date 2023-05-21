@@ -1,5 +1,9 @@
 <template>
     <div id="main" class="box">
+        <header>
+            <h1 id="logo">{{ logo }}</h1>
+            <button @click="signOut">Sign Out</button>
+        </header>
         <div class="title">
             <button @click="updateDate(-1)">
                 <i class="fa-solid fa-angle-left"></i>
@@ -80,6 +84,16 @@ export default {
         isSelectedJournal() {
             return ({ _id }) => this.selectedJournal._id == _id;
         },
+        logo() {
+            const incompleteJournals = this.dailyJournals.filter(
+                (i) => !i.checked
+            );
+            const allJournalsCompleted =
+                this.dailyJournals.length !== 0 &&
+                incompleteJournals.length === 0;
+
+            return allJournalsCompleted ? "해냄!" : "해냄?";
+        },
     },
     created() {
         this.init();
@@ -143,20 +157,16 @@ export default {
 
             this.selectedJournal = {};
         },
+        signOut() {
+            localStorage.clear();
+            sessionStorage.clear();
+            this.$router.push("/auth");
+        },
     },
 };
 </script>
 
 <style scoped>
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #c2c2c2;
-}
-button:hover {
-    color: #44b365;
-}
 .title h2 {
     display: inline-block;
 }
@@ -164,6 +174,7 @@ button:hover {
     position: relative;
     top: -3px;
     margin: 0 8px;
+    font-size: 30px;
 }
 .journal {
     height: 30px;
@@ -171,7 +182,7 @@ button:hover {
 .journal input[type="checkbox"] {
     transform: translate(-3px, 2px);
     z-index: 1;
-    accent-color: #33a054;
+    accent-color: rgb(73, 120, 250);
     cursor: pointer;
 }
 .journal input[type="text"] {

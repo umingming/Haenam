@@ -27,7 +27,7 @@ module.exports = function (db) {
                         { name: "journal" },
                         { $inc: { total: 1 } }
                     );
-                    return res.status(200).json(result.ops);
+                    return res.status(200).json(result?.ops);
                 }
             );
         });

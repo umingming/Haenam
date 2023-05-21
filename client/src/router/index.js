@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import LoginView from "@/views/LoginView";
+import AuthView from "@/views/AuthView";
 import MainView from "@/views/MainView";
 
 const router = createRouter({
@@ -8,12 +8,12 @@ const router = createRouter({
     routes: [
         {
             path: "/",
-            redirect: "/login",
+            redirect: "/auth",
         },
         {
-            path: "/login",
-            name: "LoginView",
-            component: LoginView,
+            path: "/auth",
+            name: "AuthView",
+            component: AuthView,
         },
         {
             path: "/main",
