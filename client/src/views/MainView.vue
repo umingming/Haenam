@@ -11,11 +11,12 @@
         </div>
         <div class="journal-list">
             <draggable
-                v-model="dailyJournals"
+                :list="dailyJournals"
+                :disabled="false"
+                v-bind="{ animation: 150 }"
+                ghost-class="ghost"
                 item-key="_id"
-                :options="{ animation: 150 }"
-                @start="drag = true"
-                @end="drag = false"
+                :move="checkMove"
             >
                 <template #item="{ element }">
                     <div
@@ -24,7 +25,7 @@
                     >
                         <input
                             type="checkbox"
-                            v-model="element.checked"
+                            :value="element.checked"
                             @change="editJournal(element)"
                         />
                         <input
@@ -73,6 +74,7 @@ export default {
             selectedJournal: {},
             lastEventTime: 0,
             drag: false,
+            journals: [],
         };
     },
     computed: {
@@ -93,12 +95,12 @@ export default {
             return ({ _id }) => this.selectedJournal._id == _id;
         },
         logo() {
-            const incompleteJournals = this.dailyJournals.filter(
+            const incompleteJournals = this.dailyJournals?.filter(
                 (i) => !i.checked
             );
             const allJournalsCompleted =
-                this.dailyJournals.length !== 0 &&
-                incompleteJournals.length === 0;
+                this.dailyJournals?.length !== 0 &&
+                incompleteJournals?.length === 0;
 
             return allJournalsCompleted ? "해냄!" : "해냄?";
         },
@@ -107,6 +109,9 @@ export default {
         this.init();
     },
     methods: {
+        checkMove(e) {
+            console.log(e);
+        },
         startEditing({ target }) {
             target.readOnly = false;
         },
