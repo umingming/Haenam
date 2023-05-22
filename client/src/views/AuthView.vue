@@ -8,7 +8,7 @@
                     :key="name"
                     :class="{ on: isFormSelected(name) }"
                     :name="name"
-                    @click="selectForm(name)"
+                    @onClick="selectForm(name)"
                 >
                 </base-button>
             </div>
@@ -40,12 +40,6 @@ export default {
         isFormSelected() {
             return (name) => name === this.selectedForm;
         },
-    },
-    created() {
-        const userId =
-            localStorage.getItem("user_id") ||
-            sessionStorage.getItem("user_id");
-        if (userId) this.$router.push("/main");
     },
     methods: {
         selectForm(name) {

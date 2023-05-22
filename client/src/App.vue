@@ -12,6 +12,14 @@ export default {
             return this.$route.name === "AuthView";
         },
     },
+    created() {
+        const userId =
+            localStorage.getItem("user_id") ||
+            sessionStorage.getItem("user_id");
+
+        const path = userId ? "main" : "auth";
+        this.$router.push(`/${path}`);
+    },
 };
 </script>
 

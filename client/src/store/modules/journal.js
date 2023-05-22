@@ -1,8 +1,6 @@
 import journal from "@/api/journal.js";
 import { reactive } from "vue";
 
-const user_id = sessionStorage.getItem("user_id");
-
 const state = reactive({
     journals: [],
     selectedJournal: {},
@@ -20,6 +18,9 @@ const getters = {
 const actions = {
     async FETCH_JOURNALS({ commit }) {
         try {
+            const user_id =
+                sessionStorage.getItem("user_id") ||
+                localStorage.getItem("user_id");
             const { data } = await journal.get({ user_id });
             if (data) {
                 commit("SET_JOURNALS", data);
@@ -31,6 +32,9 @@ const actions = {
     },
     async ADD_JOURNAL({ commit }, param) {
         try {
+            const user_id =
+                sessionStorage.getItem("user_id") ||
+                localStorage.getItem("user_id");
             const { data } = await journal.add({ user_id, ...param });
             commit("ADD_JOURNAL", data[0]);
             return data;

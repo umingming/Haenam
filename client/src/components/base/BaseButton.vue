@@ -33,7 +33,7 @@ export default {
             const clickInterval = currentTime - this.lastClickTime;
 
             if (clickInterval > 500) {
-                this.$emit("click");
+                this.$emit("onClick");
             }
 
             this.lastClickTime = currentTime;

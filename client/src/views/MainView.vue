@@ -2,59 +2,77 @@
     <div id="main" class="box">
         <header>
             <h1 id="logo">{{ logo }}</h1>
-            <base-button name="signOut" @click="signOut"></base-button>
+            <base-button name="signOut" @onClick="signOut"></base-button>
         </header>
         <div class="title">
-            <base-button name="left" @click="updateDate(-1)"></base-button>
+            <base-button name="left" @onClick="updateDate(-1)"></base-button>
             <h2>{{ dailyFormat }}</h2>
-            <base-button name="right" @click="updateDate(1)"></base-button>
+            <base-button name="right" @onClick="updateDate(1)"></base-button>
         </div>
         <div class="journal-list">
-            <div
-                v-for="journal of dailyJournals"
-                :key="journal._id"
-                class="journal"
-                :class="{ on: isSelectedJournal(journal) }"
+            <draggable
+                v-model="dailyJournals"
+                item-key="_id"
+                :options="{ animation: 150 }"
+                @start="drag = true"
+                @end="drag = false"
             >
-                <base-button name="edit" @click="editJournal()"></base-button>
-                <input
-                    type="checkbox"
-                    v-model="journal.checked"
-                    @change="editJournal(journal)"
-                />
-                <input
-                    type="text"
-                    :data-id="journal._id"
-                    v-model="journal.content"
-                    @focus="selectJournal(journal)"
-                    @keyup.enter="editJournal()"
-                    @keyup.backspace="handleBackspaceInput"
-                />
-                <base-button
-                    name="remove"
-                    @click="removeJournal(journal._id)"
-                ></base-button>
-            </div>
+                <template #item="{ element }">
+                    <div
+                        class="journal"
+                        :class="{ on: isSelectedJournal(element) }"
+                    >
+                        <input
+                            type="checkbox"
+                            v-model="element.checked"
+                            @change="editJournal(element)"
+                        />
+                        <input
+                            type="text"
+                            :value="element.content"
+                            :data-id="element._id"
+                            :readonly="true"
+                            @focus="selectJournal(element)"
+                            @dblclick="startEditing"
+                            @blur="finishEditing"
+                            @keyup.enter="updateInputValue"
+                            @keyup.backspace="handleBackspaceInput"
+                        />
+                        <base-button
+                            name="edit"
+                            @onClick="editJournal()"
+                        ></base-button>
+                        <base-button
+                            name="remove"
+                            @onClick="removeJournal(element._id)"
+                        ></base-button>
+                    </div>
+                </template>
+            </draggable>
         </div>
-        <div class="journal pending">
-            <base-button name="add" @click="addJournal"></base-button>
+        <div class="pending">
+            <base-button name="add" @onClick="addJournal"></base-button>
             <input type="text" id="pending-journal" @keyup.enter="addJournal" />
         </div>
     </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
 import BaseButton from "@/components/base/BaseButton.vue";
+import draggable from "vuedraggable";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
     name: "MainView",
     components: {
         BaseButton,
+        draggable,
     },
     data() {
         return {
             selectedDate: new Date(),
             selectedJournal: {},
+            lastEventTime: 0,
+            drag: false,
         };
     },
     computed: {
@@ -89,6 +107,23 @@ export default {
         this.init();
     },
     methods: {
+        startEditing({ target }) {
+            target.readOnly = false;
+        },
+        finishEditing({ target }) {
+            const { content = "" } = this.getJournalById(target.dataset.id);
+            target.readOnly = true;
+            target.value = content;
+        },
+        updateInputValue({ target: { dataset, value } }) {
+            const journal = this.getJournalById(dataset.id);
+            journal.content = value;
+            this.editJournal();
+        },
+        getJournalById(id) {
+            const journal = this.dailyJournals.find((i) => i._id == id);
+            return journal ?? {};
+        },
         ...mapActions("journal", [
             "FETCH_JOURNALS",
             "ADD_JOURNAL",
@@ -103,6 +138,14 @@ export default {
             this.selectedDate = new Date(this.selectedDate.setDate(date));
         },
         async addJournal() {
+            const currentTime = Date.now();
+            const eventInterval = currentTime - this.lastEventTime;
+            this.lastEventTime = currentTime;
+
+            if (eventInterval < 500) {
+                return;
+            }
+
             const $input = document.querySelector("#pending-journal");
             if (!$input?.value) return;
 
@@ -118,11 +161,19 @@ export default {
             }
         },
         async editJournal(journal) {
+            const currentTime = Date.now();
+            const eventInterval = currentTime - this.lastEventTime;
+            this.lastEventTime = currentTime;
+
+            if (eventInterval < 500) {
+                return;
+            }
+
             const { _id, content, checked } = journal || this.selectedJournal;
+            this.deselectJournal();
 
             try {
                 await this.EDIT_JOURNAL({ _id, content, checked });
-                if (!journal) this.deselectJournal();
             } catch (error) {
                 console.log(error);
             }
@@ -168,10 +219,11 @@ export default {
 }
 .journal-list {
     position: relative;
+    top: 0px;
     left: 50%;
     transform: translateX(-50%);
     width: 450px;
-    max-height: 70%;
+    max-height: 72%;
     overflow-y: scroll;
 }
 .journal-list::-webkit-scrollbar {
@@ -183,7 +235,12 @@ export default {
     border-radius: 5px;
 }
 .journal {
-    height: 30px;
+    background: rgba(73, 120, 250, 0.097);
+    height: 35px;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 2px;
+    cursor: pointer;
 }
 .journal input[type="checkbox"] {
     transform: translate(-3px, 2px);
@@ -192,18 +249,24 @@ export default {
     cursor: pointer;
 }
 .journal input[type="text"] {
+    position: relative;
+    top: 5px;
+    left: 5px;
     border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.108);
-    line-height: 20px;
     outline: none;
     width: 90%;
-}
-.journal input[type="text"]:focus {
+    font-size: 20px;
+    background: transparent;
     border-bottom: 1px solid black;
+    cursor: auto;
+}
+.journal input[type="text"]:read-only {
+    border-bottom: none;
+    cursor: pointer;
 }
 .button-edit {
     position: absolute;
-    transform: translate(-5.5px, 2.5px);
+    transform: translate(-4px, 4px);
     font-size: 15px;
     z-index: -1;
     opacity: 0;
@@ -211,9 +274,6 @@ export default {
 .journal.on .button-edit {
     z-index: 1;
     opacity: 1;
-}
-.journal.on input[type="checkbox"] {
-    opacity: 0;
 }
 .button-remove {
     display: none;
@@ -224,14 +284,18 @@ export default {
     transform: translateY(2px);
 }
 .journal.pending {
-    margin-top: 10px;
+    position: relative;
+    margin-top: 20px;
+    left: -7px;
 }
 .journal.pending input {
-    width: 450px;
+    width: 400px;
 }
 .button-add {
     position: relative;
-    left: -5px;
     width: 20px;
+}
+.flip-list-move {
+    transition: transform 0.5s;
 }
 </style>
