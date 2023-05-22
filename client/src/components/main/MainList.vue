@@ -1,9 +1,5 @@
 <template>
     <div class="main-list">
-        <header>
-            <h1 id="logo">{{ logo }}</h1>
-            <base-button name="signOut" @onClick="signOut"></base-button>
-        </header>
         <div class="title">
             <base-button name="left" @onClick="updateDate(-1)"></base-button>
             <h2>{{ dailyFormat }}</h2>
@@ -182,11 +178,6 @@ export default {
 
             this.selectedJournal = {};
         },
-        signOut() {
-            localStorage.clear();
-            sessionStorage.clear();
-            this.$router.push("/auth");
-        },
         updateJournalIndex({ oldIndex: fromIndex, newIndex: toIndex }) {
             this.UPDATE_JOURNAL_INDEX({ fromIndex, toIndex });
         },
@@ -212,6 +203,10 @@ export default {
 </script>
 
 <style scoped>
+.main-list {
+    width: 40%;
+    float: left;
+}
 .title h2 {
     display: inline-block;
 }
