@@ -82,6 +82,10 @@ const mutations = {
     SELECT_JOURNAL(state, data) {
         state.selectedJournal = data;
     },
+    UPDATE_JOURNAL_INDEX(state, { fromIndex, toIndex }) {
+        const journal = state.journals.splice(fromIndex, 1)[0];
+        state.journals.splice(toIndex, 0, journal);
+    },
 };
 
 export default {
