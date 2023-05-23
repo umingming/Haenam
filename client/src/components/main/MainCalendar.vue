@@ -53,39 +53,39 @@ export default {
     float: left;
     background: rgba(73, 120, 250, 0.097);
 }
-::v-deep .vc-monthly .is-not-in-month * {
+:deep .vc-monthly .is-not-in-month * {
     opacity: 0.5;
 }
-::v-deep .vc-weekday {
+:deep .vc-weekday {
     position: relative;
     transform: translate(-25px, 3px);
     font-size: 15px;
     opacity: 0.5;
 }
-::v-deep .vc-day {
+:deep .vc-day {
     background: white;
     margin: 5px;
     height: 60px;
     border-radius: 5px;
     cursor: pointer;
 }
-::v-deep .vc-day .vc-day-content {
+:deep .vc-day .vc-day-content {
     font-size: 15px;
     font-weight: 500 !important;
     transform: translate(-23px, -15px);
     width: 25px;
     height: 25px;
 }
-::v-deep .vc-day:hover .vc-day-content {
+:deep .vc-day:hover .vc-day-content {
     background: rgba(255, 192, 203, 0.516);
 }
-::v-deep .vc-highlight {
+:deep .vc-highlight {
     transform: translate(-23px, -15px);
     background: pink;
     width: 25px;
     height: 25px;
 }
-::v-deep .day-content {
+:deep .day-content {
     font-size: 10px;
     transform: translate(3px, 2px);
 }
