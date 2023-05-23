@@ -4,6 +4,7 @@ import { reactive } from "vue";
 const state = reactive({
     journals: [],
     selectedJournal: {},
+    selectedDate: new Date().toISOString().slice(0, 10),
 });
 
 const getters = {
@@ -12,6 +13,9 @@ const getters = {
     },
     getSelectedJournal(state) {
         return state.selectedJournal;
+    },
+    getSelectedDate(state) {
+        return state.selectedDate;
     },
 };
 
@@ -81,6 +85,9 @@ const mutations = {
     },
     SELECT_JOURNAL(state, data) {
         state.selectedJournal = data;
+    },
+    SELECT_DATE(state, data) {
+        state.selectedDate = data;
     },
     UPDATE_JOURNAL_INDEX(state, { fromIndex, toIndex }) {
         const journal = state.journals.splice(fromIndex, 1)[0];

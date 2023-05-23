@@ -1,16 +1,12 @@
 <template>
     <div class="main-list">
         <div class="title">
-            <base-button name="left" @onClick="updateDate(-1)"></base-button>
-            <h2>{{ dailyFormat }}</h2>
-            <base-button name="right" @onClick="updateDate(1)"></base-button>
+            <h2>{{ getSelectedDate }}</h2>
         </div>
         <div class="journal-list">
             <draggable
-                :disabled="false"
-                :list="dailyJournals"
-                item-key="_id"
                 v-bind="{ animation: 150 }"
+                :list="dailyJournals"
                 @end="updateJournalIndex"
             >
                 <template #item="{ element }">
@@ -67,13 +63,12 @@ export default {
             selectedDate: new Date(),
             selectedJournal: {},
             lastEventTime: 0,
-            drag: false,
             journals: [],
         };
     },
     computed: {
         ...mapState(["userId"]),
-        ...mapGetters("journal", ["getJournals"]),
+        ...mapGetters("journal", ["getJournals", "getSelectedDate"]),
         dailyFormat() {
             const formatDate = (date) => date.toISOString().slice(0, 10);
 
@@ -81,7 +76,7 @@ export default {
         },
         dailyJournals() {
             const journals = this.getJournals.filter((i) =>
-                i?.date.startsWith(this.dailyFormat)
+                i?.date.startsWith(this.getSelectedDate)
             );
             return journals;
         },
@@ -204,7 +199,9 @@ export default {
 
 <style scoped>
 .main-list {
-    width: 40%;
+    position: relative;
+    right: 0;
+    width: 35%;
     float: left;
 }
 .title h2 {
@@ -219,8 +216,6 @@ export default {
 .journal-list {
     position: relative;
     top: 0px;
-    left: 50%;
-    transform: translateX(-50%);
     width: 450px;
     max-height: 72%;
     overflow-y: scroll;
