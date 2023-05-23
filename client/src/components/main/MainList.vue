@@ -60,7 +60,6 @@ export default {
     },
     data() {
         return {
-            selectedDate: new Date(),
             selectedJournal: {},
             lastEventTime: 0,
             journals: [],
@@ -69,11 +68,6 @@ export default {
     computed: {
         ...mapState(["userId"]),
         ...mapGetters("journal", ["getJournals", "getSelectedDate"]),
-        dailyFormat() {
-            const formatDate = (date) => date.toISOString().slice(0, 10);
-
-            return formatDate(this.selectedDate);
-        },
         dailyJournals() {
             const journals = this.getJournals.filter((i) =>
                 i?.date.startsWith(this.getSelectedDate)
@@ -127,7 +121,7 @@ export default {
             try {
                 const param = {
                     content: $input.value,
-                    date: this.selectedDate,
+                    date: this.getSelectedDate,
                 };
                 await this.ADD_JOURNAL(param);
                 $input.value = "";
@@ -203,6 +197,7 @@ export default {
     right: 0;
     width: 35%;
     float: left;
+    height: 100%;
 }
 .title h2 {
     display: inline-block;
@@ -216,8 +211,8 @@ export default {
 .journal-list {
     position: relative;
     top: 0px;
-    width: 450px;
-    max-height: 72%;
+    width: 100%;
+    max-height: 70%;
     overflow-y: scroll;
 }
 .journal-list::-webkit-scrollbar {

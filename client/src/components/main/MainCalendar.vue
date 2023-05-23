@@ -5,6 +5,7 @@
             transparent
             borderless
             expanded
+            :attributes="[attributeByDate]"
             @dayclick="selectDate"
             @click="selectDateByBox"
         ></v-calendar>
@@ -12,14 +13,22 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
     components: {},
     data() {
         return {};
     },
-    computed: {},
-    created() {},
+    computed: {
+        ...mapGetters("journal", ["getSelectedDate"]),
+        attributeByDate() {
+            const dates = new Date(this.getSelectedDate);
+            return {
+                highlight: true,
+                dates,
+            };
+        },
+    },
     methods: {
         ...mapMutations("journal", ["SELECT_DATE"]),
         selectDateByBox({ target: { className } }) {
@@ -60,14 +69,21 @@ export default {
     border-radius: 5px;
     cursor: pointer;
 }
-::v-deep .vc-day-content {
+::v-deep .vc-day .vc-day-content {
     font-size: 15px;
-    transform: translate(-25px, -15px);
+    font-weight: 500 !important;
+    transform: translate(-23px, -15px);
     width: 25px;
     height: 25px;
 }
 ::v-deep .vc-day:hover .vc-day-content {
+    background: rgba(255, 192, 203, 0.516);
+}
+::v-deep .vc-highlight {
+    transform: translate(-23px, -15px);
     background: pink;
+    width: 25px;
+    height: 25px;
 }
 ::v-deep .day-content {
     font-size: 10px;

@@ -16,7 +16,7 @@
     z-index: 1;
     width: 100%;
     height: 100%;
-    background: #ffffff;
+    background: #ffffff0f;
     transition: background linear 0.5s;
 }
 #wrapper.on {
@@ -158,6 +158,6 @@ header button {
     right: 40px;
 }
 #main .title {
-    margin-top: 40px;
-    font-size: 30px;
+    margin: 10px auto;
+    font-size: 20px;
 }
