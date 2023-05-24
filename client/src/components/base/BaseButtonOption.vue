@@ -74,7 +74,7 @@ export default {
 .option-box {
     position: absolute;
     top: -72px;
-    left: 10px;
+    left: 8px;
     background: white;
     padding: 6px auto;
     border-radius: 5px;

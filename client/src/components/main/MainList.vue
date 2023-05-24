@@ -218,6 +218,7 @@ export default {
     top: 0px;
     width: 100%;
     max-height: 70%;
+    min-height: 10%;
     overflow-y: scroll;
     overflow-x: visible !important;
 }
