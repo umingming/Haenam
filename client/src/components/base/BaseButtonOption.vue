@@ -1,6 +1,7 @@
 <template>
     <div class="button-option">
         <base-button
+            class="main-button"
             :name="buttonName"
             @onClick="toggleOption"
             @onBlur="hideOption"
@@ -10,7 +11,7 @@
                 v-for="option of options"
                 :key="option"
                 :name="option"
-                @onClick="emitEvent"
+                @onClick="selectOption"
             ></base-button>
         </div>
     </div>
@@ -26,6 +27,7 @@ export default {
         return {
             isShowOption: false,
             options: ["copy", "edit", "remove"],
+            selectedOption: "",
         };
     },
     computed: {
@@ -43,7 +45,7 @@ export default {
         hideOption() {
             this.isShowOption = false;
         },
-        emitEvent(name) {
+        selectOption(name) {
             this.$emit(name);
         },
     },
@@ -54,21 +56,20 @@ export default {
 .button-option {
     position: absolute;
 }
-.button-ellipsis,
-.button-close {
+.main-button {
     position: absolute;
     top: 6px;
     z-index: 1;
     width: 20px;
     height: 20px;
-    background: #c2c2c2;
+    color: #c2c2c2;
     line-height: 20px;
-    color: white !important;
     border-radius: 10px;
 }
-.button-ellipsis:hover,
+.main-button:hover,
 .button-close {
     background: rgb(73, 120, 250);
+    color: white;
 }
 .option-box {
     position: absolute;

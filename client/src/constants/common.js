@@ -40,7 +40,7 @@ export const BUTTONS = [
     },
     {
         name: "ellipsis",
-        iconClass: "fa-solid fa-ellipsis",
+        iconClass: "fa-solid fa-ellipsis-vertical",
     },
     {
         name: "close",

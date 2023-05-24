@@ -14,7 +14,10 @@
                         class="journal"
                         :class="{ on: isSelectedJournal(element) }"
                     >
-                        <base-button-option></base-button-option>
+                        <base-button-option
+                            @edit="editInput(element._id)"
+                            @remove="removeJournal(element._id)"
+                        ></base-button-option>
                         <input
                             type="checkbox"
                             v-model="element.checked"
@@ -172,8 +175,13 @@ export default {
             const toIndex = findJournalIndex(newIndex);
             this.UPDATE_JOURNAL_INDEX({ fromIndex, toIndex });
         },
+        editInput(id) {
+            const $input = document.querySelector(`[data-id="${id}"]`);
+            this.startEditing({ target: $input });
+        },
         startEditing({ target }) {
             target.readOnly = false;
+            target.focus();
         },
         finishEditing({ target }) {
             const { content = "" } = this.getJournalById(target.dataset.id);

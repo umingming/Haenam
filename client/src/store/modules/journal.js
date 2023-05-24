@@ -81,7 +81,7 @@ const mutations = {
     },
     REMOVE_JOURNAL(state, _id) {
         const index = state.journals.findIndex((i) => i._id == _id);
-        state.journals.splice(index, 1);
+        if (index > -1) state.journals.splice(index, 1);
     },
     SELECT_JOURNAL(state, data) {
         state.selectedJournal = data;
