@@ -14,9 +14,10 @@
                         class="journal"
                         :class="{ on: isSelectedJournal(element) }"
                     >
+                        <base-button-option></base-button-option>
                         <input
                             type="checkbox"
-                            :value="element.checked"
+                            v-model="element.checked"
                             @change="editJournal(element)"
                         />
                         <input
@@ -30,14 +31,6 @@
                             @keyup.enter="updateInputValue"
                             @keyup.backspace="handleBackspaceInput"
                         />
-                        <base-button
-                            name="edit"
-                            @onClick="editJournal()"
-                        ></base-button>
-                        <base-button
-                            name="remove"
-                            @onClick="removeJournal(element._id)"
-                        ></base-button>
                     </div>
                 </template>
             </draggable>
@@ -50,19 +43,22 @@
 </template>
 
 <script>
-import BaseButton from "@/components/base/BaseButton.vue";
 import draggable from "vuedraggable";
+import BaseButton from "@/components/base/BaseButton.vue";
+import BaseButtonOption from "@/components/base/BaseButtonOption.vue";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
     components: {
-        BaseButton,
         draggable,
+        BaseButton,
+        BaseButtonOption,
     },
     data() {
         return {
             selectedJournal: {},
             lastEventTime: 0,
             journals: [],
+            isShowOptions: false,
         };
     },
     computed: {
@@ -163,11 +159,17 @@ export default {
         deselectJournal() {
             const { _id } = this.selectedJournal;
             const $input = document.querySelector(`[data-id="${_id}"]`);
-            $input.blur();
 
+            if ($input) $input.blur();
             this.selectedJournal = {};
         },
-        updateJournalIndex({ oldIndex: fromIndex, newIndex: toIndex }) {
+        updateJournalIndex({ oldIndex, newIndex }) {
+            const findJournalIndex = (index) =>
+                this.getJournals.findIndex(
+                    (i) => i._id === this.dailyJournals[index]._id
+                );
+            const fromIndex = findJournalIndex(oldIndex);
+            const toIndex = findJournalIndex(newIndex);
             this.UPDATE_JOURNAL_INDEX({ fromIndex, toIndex });
         },
         startEditing({ target }) {
@@ -187,26 +189,21 @@ export default {
             const journal = this.dailyJournals.find((i) => i._id == id);
             return journal ?? {};
         },
+        toggleOptions() {
+            this.isShowOptions = !this.isShowOptions;
+        },
     },
 };
 </script>
 
 <style scoped>
 .main-list {
-    position: relative;
+    position: absolute;
+    width: 40%;
     right: 0;
-    width: 35%;
-    float: left;
     height: 100%;
-}
-.title h2 {
-    display: inline-block;
-}
-.title button {
-    position: relative;
-    top: -3px;
-    margin: 0 8px;
-    font-size: 30px;
+    z-index: 2 !important;
+    overflow: visible !important;
 }
 .journal-list {
     position: relative;
@@ -214,6 +211,7 @@ export default {
     width: 100%;
     max-height: 70%;
     overflow-y: scroll;
+    overflow-x: visible !important;
 }
 .journal-list::-webkit-scrollbar {
     cursor: pointer;
@@ -223,10 +221,15 @@ export default {
     background: rgba(73, 120, 250, 0.303) !important;
     border-radius: 5px;
 }
-.journal {
+.journal-list .journal:first-child {
+    margin-top: 70px;
+}
+.journal-list .journal {
+    position: relative;
     background: rgba(73, 120, 250, 0.097);
+    z-index: 1;
     height: 35px;
-    margin: 10px;
+    margin: 10px 40px;
     border-radius: 10px;
     padding: 2px;
     cursor: pointer;
@@ -244,7 +247,7 @@ export default {
     border: none;
     outline: none;
     width: 90%;
-    font-size: 20px;
+    font-size: 15px;
     background: transparent;
     border-bottom: 1px solid black;
     cursor: auto;
@@ -252,25 +255,6 @@ export default {
 .journal input[type="text"]:read-only {
     border-bottom: none;
     cursor: pointer;
-}
-.button-edit {
-    position: absolute;
-    transform: translate(-4px, 4px);
-    font-size: 15px;
-    z-index: -1;
-    opacity: 0;
-}
-.journal.on .button-edit {
-    z-index: 1;
-    opacity: 1;
-}
-.button-remove {
-    display: none;
-}
-.journal:hover .button-remove {
-    position: absolute;
-    display: inline-block;
-    transform: translateY(2px);
 }
 .journal.pending {
     position: relative;
@@ -284,7 +268,9 @@ export default {
     position: relative;
     width: 20px;
 }
-.flip-list-move {
-    transition: transform 0.5s;
+.button-option {
+    position: absolute;
+    transform: translateX(-25px);
+    z-index: 10;
 }
 </style>

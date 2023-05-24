@@ -1,15 +1,15 @@
 export const BUTTONS = [
     {
         name: "signIn",
-        text: "Sign In",
+        text: "로그인",
     },
     {
         name: "signUp",
-        text: "Sign Up",
+        text: "회원가입",
     },
     {
         name: "signOut",
-        text: "Sign Out",
+        text: "로그아웃",
     },
     {
         name: "left",
@@ -22,13 +22,28 @@ export const BUTTONS = [
     {
         name: "edit",
         iconClass: "fa-solid fa-pen-to-square",
+        text: "수정",
     },
     {
         name: "remove",
-        iconClass: "fa-solid fa-xmark",
+        iconClass: "fa-solid fa-trash-can",
+        text: "삭제",
     },
     {
         name: "add",
         iconClass: "fa-solid fa-circle-plus",
+    },
+    {
+        name: "copy",
+        iconClass: "fa-solid fa-clone",
+        text: "복사",
+    },
+    {
+        name: "ellipsis",
+        iconClass: "fa-solid fa-ellipsis",
+    },
+    {
+        name: "close",
+        iconClass: "fa-solid fa-xmark",
     },
 ];

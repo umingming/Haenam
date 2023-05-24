@@ -1,5 +1,5 @@
 <template>
-    <button :class="buttonClass" @click="handleClick">
+    <button :class="buttonClass" @click="handleEvent" @blur="handleEvent">
         <i :class="buttonInfo('iconClass')"></i>
         {{ buttonInfo("text") }}
     </button>
@@ -13,7 +13,8 @@ export default {
     },
     data() {
         return {
-            lastClickTime: 0,
+            lastEventTime: 0,
+            lastEvent: "",
         };
     },
     computed: {
@@ -28,15 +29,17 @@ export default {
         },
     },
     methods: {
-        handleClick() {
-            const currentTime = Date.now();
-            const clickInterval = currentTime - this.lastClickTime;
+        handleEvent({ type }) {
+            const event = `on${type[0].toUpperCase()}${type.slice(1)}`;
+            const eventTime = Date.now();
+            const eventInterval = eventTime - this.lastEventTime;
 
-            if (clickInterval > 500) {
-                this.$emit("onClick");
+            if (event !== this.lastEvent || eventInterval > 500) {
+                this.$emit(event, this.name);
             }
 
-            this.lastClickTime = currentTime;
+            this.lastEvent = event;
+            this.lastEventTime = eventTime;
         },
     },
 };

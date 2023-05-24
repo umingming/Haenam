@@ -1,18 +1,18 @@
 <template>
     <div id="login-form">
         <div class="login-text">
-            <label for="id">ID</label>
+            <label for="id">아이디</label>
             <input type="text" id="id" v-model="id" />
         </div>
         <div class="login-text">
-            <label for="pw">Password</label>
+            <label for="pw">비밀번호</label>
             <input type="text" id="pw" v-model="pw" />
         </div>
         <div class="login-keep">
             <input type="checkbox" id="keep-check" v-model="keepLoggedIn" />
             <label for="keep-check">로그인 상태 유지</label>
         </div>
-        <button @click="login">Sign Up</button>
+        <button @click="login">로그인</button>
     </div>
 </template>
 

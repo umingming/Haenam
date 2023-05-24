@@ -1,163 +1,219 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 #app {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: url(../img/background.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url(../img/background.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 #wrapper {
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    background: #ffffff0f;
-    transition: background linear 0.5s;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: #ffffff0f;
+  transition: background linear 0.5s;
 }
 #wrapper.on {
-    background: #ffffff76;
-    transition: background linear 0.5s;
+  background: #ffffff76;
+  transition: background linear 0.5s;
 }
 
 button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #c2c2c2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #c2c2c2;
 }
 button:hover {
-    color: rgb(73, 120, 250);
+  color: rgb(73, 120, 250);
 }
 
 .box {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1000px;
-    height: 500px;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1200px;
+  height: 600px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
 }
 #login #login-left {
-    position: relative;
-    float: left;
-    height: 100%;
-    width: 40%;
-    text-align: center;
+  position: relative;
+  float: left;
+  height: 100%;
+  width: 40%;
+  text-align: center;
 }
 #login #login-right {
-    height: 100%;
-    width: 60%;
-    float: left;
-    background-image: url(../img/background.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+  height: 100%;
+  width: 60%;
+  float: left;
+  background-image: url(../img/background.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 #login #login-left h1 {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 #login #login-left h1 span {
-    font-size: larger;
-    color: rgb(73, 120, 250);
+  font-size: larger;
+  color: rgb(73, 120, 250);
 }
 #login #login-left #login-select {
-    position: relative;
-    text-align: right;
-    margin: 10px 20px;
+  position: relative;
+  text-align: right;
+  margin: 10px 20px;
 }
 #login #login-left #login-select button {
-    margin: 0 5px;
-    background: none;
-    border: none;
-    color: #858585;
-    cursor: pointer;
+  margin: 0 5px;
+  background: none;
+  border: none;
+  color: #858585;
+  cursor: pointer;
 }
 #login #login-left #login-select button.on {
-    color: rgb(73, 120, 250);
+  color: rgb(73, 120, 250);
 }
 #login #login-left #login-form {
-    position: relative;
-    width: calc(100% -100px);
-    padding: 10px 50px;
+  position: relative;
+  width: calc(100% -100px);
+  padding: 10px 50px;
 }
 #login #login-left #login-form .login-text label {
-    display: block;
-    text-align: left;
-    margin: 10px auto;
-    color: #858585;
-    font-weight: 700;
+  display: block;
+  text-align: left;
+  margin: 10px auto;
+  color: #858585;
+  font-weight: 700;
 }
 #login #login-left #login-form .login-text input {
-    position: relative;
-    left: 0;
-    width: 93%;
-    height: 30px;
-    margin-bottom: 15px;
-    font-size: 20px;
-    line-height: 30px;
-    padding: 0 10px;
-    border: 1px solid #a7a7a7;
-    border-radius: 3px;
-    outline: none;
+  position: relative;
+  left: 0;
+  width: 93%;
+  height: 30px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  line-height: 30px;
+  padding: 0 10px;
+  border: 1px solid #a7a7a7;
+  border-radius: 3px;
+  outline: none;
 }
 #login #login-left #login-form .login-keep {
-    text-align: left;
+  text-align: left;
 }
 #login #login-left #login-form .login-keep label {
-    position: relative;
-    top: -1px;
-    color: #858585;
-    margin-left: 5px;
-    font-size: small;
+  position: relative;
+  top: -1px;
+  color: #858585;
+  margin-left: 5px;
+  font-size: small;
 }
 #login #login-left #login-form button {
-    position: relative;
-    bottom: 0px;
-    margin-top: 20px;
-    width: 101%;
-    height: 45px;
-    font-size: x-large;
-    font-weight: 700;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    background: rgb(73, 120, 250);
-    border: none;
-    border-radius: 5px;
-    outline: none;
-    color: white;
-    cursor: pointer;
+  position: relative;
+  bottom: 0px;
+  margin-top: 20px;
+  width: 101%;
+  height: 45px;
+  font-size: x-large;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  background: rgb(73, 120, 250);
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  color: white;
+  cursor: pointer;
 }
 
 .box#main {
-    text-align: center;
+  text-align: center;
 }
 #main header {
-    position: relative;
-    margin: auto 10px;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    border-bottom: 1px solid #F0EFF4;
+  position: relative;
+  margin: auto 10px;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #f0eff4;
 }
 #logo {
-    text-align: left;
-    font-size: 25px;
-    color: rgb(73, 120, 250);
+  text-align: left;
+  font-size: 25px;
+  color: rgb(73, 120, 250);
 }
 header button {
-    position: absolute;
-    top: 10px;
-    right: 40px;
+  position: absolute;
+  top: 10px;
+  right: 40px;
 }
 #main .title {
-    margin: 10px auto;
-    font-size: 20px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  margin: 10px auto;
+  font-size: 15px;
+}
+
+.main-calendar {
+  position: absolute;
+  z-index: 1 !important;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: rgba(73, 120, 250, 0.097);
+}
+.vc-pane-header-wrapper {
+  width: 25% !important;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.vc-title {
+  font-size: 18px;
+}
+.vc-monthly .is-not-in-month * {
+  opacity: 0.5;
+}
+.vc-weekday {
+  position: relative;
+  transform: translate(29px, 3px);
+  font-size: 15px;
+  opacity: 0.5;
+}
+.vc-day {
+  background: white;
+  margin: 5px;
+  height: 80px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.vc-day .vc-day-content {
+  font-size: 15px;
+  font-weight: 500 !important;
+  transform: translate(29px, -25px);
+  width: 25px;
+  height: 25px;
+}
+.vc-day:hover .vc-day-content {
+  background: #2564eb17;
+}
+.vc-highlight {
+  transform: translate(29px, -24px);
+  background: #2563eb;
+  width: 25px;
+  height: 25px;
+}
+.day-content {
+  font-size: 10px;
+  transform: translate(3px, 2px);
 }

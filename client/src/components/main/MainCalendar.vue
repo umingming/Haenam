@@ -45,48 +45,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.main-calendar {
-    position: relative;
-    width: 60%;
-    height: 100%;
-    float: left;
-    background: rgba(73, 120, 250, 0.097);
-}
-:deep .vc-monthly .is-not-in-month * {
-    opacity: 0.5;
-}
-:deep .vc-weekday {
-    position: relative;
-    transform: translate(-25px, 3px);
-    font-size: 15px;
-    opacity: 0.5;
-}
-:deep .vc-day {
-    background: white;
-    margin: 5px;
-    height: 60px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-:deep .vc-day .vc-day-content {
-    font-size: 15px;
-    font-weight: 500 !important;
-    transform: translate(-23px, -15px);
-    width: 25px;
-    height: 25px;
-}
-:deep .vc-day:hover .vc-day-content {
-    background: rgba(255, 192, 203, 0.516);
-}
-:deep .vc-highlight {
-    transform: translate(-23px, -15px);
-    background: pink;
-    width: 25px;
-    height: 25px;
-}
-:deep .day-content {
-    font-size: 10px;
-    transform: translate(3px, 2px);
-}
-</style>
+<style scoped></style>
