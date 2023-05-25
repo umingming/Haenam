@@ -14,10 +14,6 @@
                         class="journal"
                         :class="{ on: isSelectedJournal(element) }"
                     >
-                        <base-button-option
-                            @edit="editInput(element._id)"
-                            @remove="removeJournal(element._id)"
-                        ></base-button-option>
                         <input
                             type="checkbox"
                             v-model="element.checked"
@@ -48,13 +44,11 @@
 <script>
 import draggable from "vuedraggable";
 import BaseButton from "@/components/base/BaseButton.vue";
-import BaseButtonOption from "@/components/base/BaseButtonOption.vue";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
     components: {
         draggable,
         BaseButton,
-        BaseButtonOption,
     },
     data() {
         return {
@@ -204,82 +198,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.main-list {
-    position: absolute;
-    width: 40%;
-    right: 0;
-    height: 100%;
-    z-index: 2 !important;
-    overflow: visible !important;
-}
-.journal-list {
-    position: relative;
-    top: 0px;
-    width: 100%;
-    max-height: 70%;
-    min-height: 10%;
-    overflow-y: scroll;
-    overflow-x: visible !important;
-}
-.journal-list::-webkit-scrollbar {
-    cursor: pointer;
-    width: 8px;
-}
-.journal-list::-webkit-scrollbar-thumb {
-    background: rgba(73, 120, 250, 0.303) !important;
-    border-radius: 5px;
-}
-.journal-list .journal:first-child {
-    margin-top: 70px;
-}
-.journal-list .journal {
-    position: relative;
-    background: rgba(73, 120, 250, 0.097);
-    z-index: 1;
-    height: 35px;
-    margin: 10px 40px;
-    border-radius: 10px;
-    padding: 2px;
-    cursor: pointer;
-}
-.journal input[type="checkbox"] {
-    transform: translate(-3px, 2px);
-    z-index: 1;
-    accent-color: rgb(73, 120, 250);
-    cursor: pointer;
-}
-.journal input[type="text"] {
-    position: relative;
-    top: 7px;
-    left: 5px;
-    border: none;
-    outline: none;
-    width: 90%;
-    font-size: 15px;
-    background: transparent;
-    border-bottom: 1px solid black;
-    cursor: auto;
-}
-.journal input[type="text"]:read-only {
-    border-bottom: none;
-    cursor: pointer;
-}
-.journal.pending {
-    position: relative;
-    margin-top: 20px;
-    left: -7px;
-}
-.journal.pending input {
-    width: 400px;
-}
-.button-add {
-    position: relative;
-    width: 20px;
-}
-.button-option {
-    position: absolute;
-    transform: translateX(-25px);
-    z-index: 10;
-}
-</style>
+<style scoped></style>

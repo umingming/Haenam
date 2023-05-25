@@ -165,9 +165,8 @@ header button {
   font-size: 15px;
 }
 .main-calendar {
-  position: absolute;
-  z-index: 1 !important;
-  left: 0;
+  position: relative;
+  float: left;
   width: 60%;
   height: 100%;
   background: rgba(73, 120, 250, 0.097);
@@ -215,4 +214,153 @@ header button {
 .day-content {
   font-size: 10px;
   transform: translate(3px, 2px);
+}
+
+.main-list {
+  position: relative;
+  display: inline-block;
+  width: 40%;
+  height: 100%;
+  z-index: 2 !important;
+}
+.journal-list {
+  position: relative;
+  top: 0px;
+  width: 100%;
+  margin-top: 50px;
+  max-height: 70%;
+  min-height: 10%;
+  overflow-y: auto;
+  overflow-x: visible !important;
+}
+.journal-list::-webkit-scrollbar {
+  cursor: pointer;
+  width: 8px;
+}
+.journal-list::-webkit-scrollbar-thumb {
+  background: rgba(73, 120, 250, 0.303) !important;
+  border-radius: 5px;
+}
+.journal-list .journal {
+  position: relative;
+  background: rgba(73, 120, 250, 0.097);
+  z-index: 1;
+  height: 35px;
+  margin: 10px 40px;
+  border-radius: 10px;
+  padding: 2px;
+  cursor: pointer;
+}
+.journal input[type="checkbox"] {
+  transform: translate(-3px, 2px);
+  z-index: 1;
+  accent-color: rgb(73, 120, 250);
+  cursor: pointer;
+}
+.journal input[type="text"] {
+  position: relative;
+  top: 7px;
+  left: 5px;
+  border: none;
+  outline: none;
+  width: 90%;
+  font-size: 15px;
+  background: transparent;
+  border-bottom: 1px solid black;
+  cursor: auto;
+}
+.journal input[type="text"]:read-only {
+  border-bottom: none;
+  cursor: pointer;
+}
+.journal.pending {
+  position: relative;
+  margin-top: 20px;
+  left: -7px;
+}
+.journal.pending input {
+  width: 400px;
+}
+.journal.pending .button-add {
+  position: relative;
+  width: 20px;
+}
+.journal-list .button-option {
+  position: absolute;
+  transform: translateX(-25px);
+  z-index: 100;
+}
+
+.main-button {
+    position: absolute;
+    top: 6px;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    color: #c2c2c2;
+    line-height: 20px;
+    border-radius: 10px;
+}
+.main-button:hover,
+.button-close {
+    background: rgb(73, 120, 250);
+    color: white;
+}
+.option-box {
+    position: absolute;
+    top: -72px;
+    left: -30px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.116);
+    transform-origin: left bottom;
+    transform: scale(0);
+    transition: transform 0.4s ease-in;
+    overflow: hidden;
+}
+.option-box.on {
+    transform: scale(1);
+    transition: transform 0.4s linear;
+}
+@keyframes scaleUp {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.option-box button {
+    display: block;
+    height: 25px;
+    width: 56px;
+    margin: 3px;
+    border-radius: 2px;
+    color: #8b8b8b;
+}
+.option-box button:hover {
+    background: rgba(73, 120, 250, 0.034);
+    color: #616161;
+    font-weight: 600;
+    transform: scale(1.02);
+}
+.option-box :deep button:hover i {
+    transform: scale(1.2);
+}
+.option-box button::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    width: 52px;
+    border-bottom: 1px solid #c2c2c256;
+    transform: translateY(23px);
+}
+.option-box button:last-child {
+    padding-bottom: 1px;
+}
+.option-box button:last-child::after {
+    border-bottom: none;
+}
+.option-box :deep button i {
+    width: 14px;
 }
