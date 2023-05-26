@@ -13,6 +13,8 @@
                     <div
                         class="journal"
                         :class="{ on: isSelectedJournal(element) }"
+                        :data-id="element._id"
+                        @click="showOption"
                     >
                         <input
                             type="checkbox"
@@ -34,9 +36,16 @@
                 </template>
             </draggable>
         </div>
-        <div class="pending">
-            <base-button name="add" @onClick="addJournal"></base-button>
-            <input type="text" id="pending-journal" @keyup.enter="addJournal" />
+        <div class="option">
+            <base-button-option></base-button-option>
+            <div class="pending">
+                <base-button name="add" @onClick="addJournal"></base-button>
+                <input
+                    type="text"
+                    id="pending-journal"
+                    @keyup.enter="addJournal"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -44,11 +53,13 @@
 <script>
 import draggable from "vuedraggable";
 import BaseButton from "@/components/base/BaseButton.vue";
+import BaseButtonOption from "@/components/base/BaseButtonOption.vue";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
     components: {
         draggable,
         BaseButton,
+        BaseButtonOption,
     },
     data() {
         return {
@@ -193,6 +204,9 @@ export default {
         },
         toggleOptions() {
             this.isShowOptions = !this.isShowOptions;
+        },
+        showOption({ target }) {
+            console.dir(target);
         },
     },
 };
