@@ -8,7 +8,18 @@
             :attributes="[attributeByDate]"
             @dayclick="selectDate"
             @click="selectDateByBox"
-        ></v-calendar>
+        >
+            <template v-slot:day-content="{ day, attributes }">
+                <div>
+                    <div>
+                        {{ day.day }}
+                    </div>
+                    <div v-for="{ key, customData } in attributes" :key="key">
+                        {{ customData.description }}
+                    </div>
+                </div>
+            </template>
+        </v-calendar>
     </div>
 </template>
 
@@ -26,6 +37,10 @@ export default {
             return {
                 highlight: true,
                 dates,
+                key: 1,
+                customData: {
+                    description: "test",
+                },
             };
         },
     },
