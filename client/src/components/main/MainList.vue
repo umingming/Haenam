@@ -212,4 +212,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+input[type="checkbox"] {
+    transform: translate(-3px, 8px);
+}
+</style>
