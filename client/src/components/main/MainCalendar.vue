@@ -5,18 +5,16 @@
             transparent
             borderless
             expanded
-            :attributes="[attributeByDate]"
+            :attributes="formattedJournals"
             @dayclick="selectDate"
             @click="selectDateByBox"
         >
             <template v-slot:day-content="{ day, attributes }">
-                <div>
-                    <div>
-                        {{ day.day }}
-                    </div>
-                    <div v-for="{ key, customData } in attributes" :key="key">
-                        {{ customData.description }}
-                    </div>
+                <div :class="{ on: isSelected(day) }">
+                    {{ day.day }}
+                </div>
+                <div v-for="({ journal }, index) in attributes" :key="index">
+                    {{ journal.content }}
                 </div>
             </template>
         </v-calendar>
@@ -31,17 +29,28 @@ export default {
         return {};
     },
     computed: {
-        ...mapGetters("journal", ["getSelectedDate"]),
+        ...mapGetters("journal", ["getJournals", "getSelectedDate"]),
+        isSelected() {
+            return ({ id }) => {
+                return id === this.getSelectedDate;
+            };
+        },
+        formattedJournals() {
+            const formatJournal = (journal) => ({
+                dates: new Date(journal.date),
+                journal,
+            });
+            const journals = this.getJournals.map((i) => formatJournal(i));
+            return journals;
+        },
         attributeByDate() {
             const dates = new Date(this.getSelectedDate);
-            return {
-                highlight: true,
-                dates,
-                key: 1,
-                customData: {
-                    description: "test",
+            return [
+                {
+                    dates,
+                    customData: "test1",
                 },
-            };
+            ];
         },
     },
     methods: {
