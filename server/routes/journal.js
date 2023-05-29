@@ -7,6 +7,7 @@ module.exports = function (db) {
         db.collection("journal")
             .find({ user_id })
             .toArray((err, result) => {
+                if (err) return res.status(500).json();
                 return res.status(200).json(result);
             });
     });
@@ -15,19 +16,18 @@ module.exports = function (db) {
         const { user_id, content, date } = req.body;
 
         db.collection("counter").findOne({ name: "journal" }, (err, result) => {
-            if (err) console.log(err);
+            if (err) return res.status(500).json();
 
             const { total } = result;
             db.collection("journal").insertOne(
                 { _id: total, content, date, user_id },
                 (err, result) => {
-                    if (err) console.log(err);
+                    if (err || !result) return res.status(500).json();
 
                     db.collection("counter").updateOne(
                         { name: "journal" },
                         { $inc: { total: 1 } }
                     );
-                    if (!result) return res.status(400).json();
                     return res.status(200).json(result.ops);
                 }
             );
@@ -41,7 +41,7 @@ module.exports = function (db) {
             { $set: { ...param } },
             { returnOriginal: false },
             (err, result) => {
-                if (err) console.log(err);
+                if (err) return res.status(500).json();
                 return res.status(200).json(result.value);
             }
         );
@@ -50,7 +50,7 @@ module.exports = function (db) {
     router.delete("/:id", (req, res) => {
         const _id = +req.params.id;
         db.collection("journal").deleteOne({ _id }, (err, result) => {
-            if (err) console.log(err);
+            if (err) return res.status(500).json();
             return res.status(200).json(result);
         });
     });

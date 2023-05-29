@@ -8,14 +8,14 @@ module.exports = function (db) {
             { failureFlash: true },
             (err, user, info) => {
                 if (err) {
-                    return next(err);
+                    return res.status(500).json();
                 }
                 if (!user) {
                     return res.status(401).json({ error: info });
                 }
                 req.logIn(user, (err) => {
                     if (err) {
-                        return next(err);
+                        return res.status(401).json({ error: info });
                     }
                     return res.status(200).json({ user_id: user._id });
                 });
@@ -26,11 +26,11 @@ module.exports = function (db) {
     router.post("/register", (req, res) => {
         const { id, pw } = req.body;
         db.collection("login").findOne({ id }, (err, result) => {
-            if (err) console.log(err);
+            if (err) return res.status(500).json();
             if (result) return res.status(409).json();
 
             db.collection("login").insertOne({ id, pw }, (err) => {
-                if (err) console.log(err);
+                if (err) return res.status(500).json();
                 return res.status(200).json();
             });
         });
