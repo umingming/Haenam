@@ -43,11 +43,11 @@ export default {
                 }
                 alert("로그인 성공");
                 this.$router.push("/main");
-            } catch ({ status }) {
-                if (status === 404) {
-                    alert("존재하지 않는 아디디");
-                } else if (status === 401) {
-                    alert("비밀번호 불일치");
+            } catch (error) {
+                if (error.status === 401) {
+                    alert(error.data.error);
+                } else {
+                    console.log(error);
                 }
             }
         },
