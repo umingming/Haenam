@@ -8,7 +8,7 @@
             <label for="pw">비밀번호</label>
             <input type="text" id="pw" v-model="pw" />
         </div>
-        <button @click="signUp">회원가입</button>
+        <button @click="register">회원가입</button>
     </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         ...mapMutations(["SET_USER_ID"]),
-        async signUp() {
+        async register() {
             try {
                 const { status } = await auth.register({
                     id: this.id,

@@ -4,49 +4,46 @@
             <h1>오늘도 <span>해냄!</span></h1>
             <div id="login-select">
                 <base-button
-                    v-for="name in formNames"
-                    :key="name"
-                    :class="{ on: isFormSelected(name) }"
+                    v-for="(name, index) in formNames"
+                    :key="index"
+                    :class="{ on: isFormSelected(index) }"
                     :name="name"
-                    @onClick="selectForm(name)"
+                    @onClick="selectForm(index)"
                 >
                 </base-button>
             </div>
-            <sign-in-form v-if="isFormSelected('signIn')"></sign-in-form>
-            <sign-up-form
-                v-if="isFormSelected('signUp')"
-                @ok="selectForm('signIn')"
-            ></sign-up-form>
+            <login-form v-if="isFormSelected(0)"></login-form>
+            <register-form v-else @ok="selectForm(0)"></register-form>
         </div>
         <div id="login-right"></div>
     </div>
 </template>
 
 <script>
-import SignInForm from "@/components/auth/SignInForm.vue";
-import SignUpForm from "@/components/auth/SignUpForm.vue";
+import LoginForm from "@/components/auth/LoginForm.vue";
+import RegisterForm from "@/components/auth/RegisterForm.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 export default {
     name: "AuthView",
     components: {
-        SignInForm,
-        SignUpForm,
+        LoginForm,
+        RegisterForm,
         BaseButton,
     },
     data() {
         return {
-            formNames: ["signIn", "signUp"],
-            selectedForm: "signIn",
+            formNames: ["login", "register"],
+            selectedIndex: 0,
         };
     },
     computed: {
         isFormSelected() {
-            return (name) => name === this.selectedForm;
+            return (index) => index === this.selectedIndex;
         },
     },
     methods: {
-        selectForm(name) {
-            this.selectedForm = name;
+        selectForm(index) {
+            this.selectedIndex = index;
         },
     },
 };

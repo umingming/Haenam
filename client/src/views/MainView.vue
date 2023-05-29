@@ -2,7 +2,7 @@
     <div id="main" class="box">
         <header>
             <h1 id="logo">해냄</h1>
-            <base-button name="signOut" @onClick="signOut"></base-button>
+            <base-button name="logout" @onClick="logout"></base-button>
         </header>
         <main-calendar></main-calendar>
         <main-list></main-list>
@@ -21,7 +21,7 @@ export default {
         BaseButton,
     },
     methods: {
-        signOut() {
+        logout() {
             localStorage.clear();
             sessionStorage.clear();
             this.$router.push("/auth");

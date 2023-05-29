@@ -1,14 +1,14 @@
 export const BUTTONS = [
     {
-        name: "signIn",
+        name: "login",
         text: "로그인",
     },
     {
-        name: "signUp",
+        name: "register",
         text: "회원가입",
     },
     {
-        name: "signOut",
+        name: "logout",
         text: "로그아웃",
     },
     {
