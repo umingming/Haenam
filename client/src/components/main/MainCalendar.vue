@@ -5,18 +5,10 @@
             transparent
             borderless
             expanded
-            :attributes="formattedJournals"
+            :attributes="attributeByDate"
             @dayclick="selectDate"
             @click="selectDateByBox"
         >
-            <template v-slot:day-content="{ day, attributes }">
-                <div :class="{ on: isSelected(day) }">
-                    {{ day.day }}
-                </div>
-                <div v-for="({ journal }, index) in attributes" :key="index">
-                    {{ journal.content }}
-                </div>
-            </template>
         </v-calendar>
     </div>
 </template>
@@ -48,6 +40,7 @@ export default {
             return [
                 {
                     dates,
+                    highlight: true,
                     customData: "test1",
                 },
             ];

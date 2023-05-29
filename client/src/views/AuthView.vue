@@ -13,7 +13,10 @@
                 </base-button>
             </div>
             <sign-in-form v-if="isFormSelected('signIn')"></sign-in-form>
-            <sign-up-form v-if="isFormSelected('signUp')"></sign-up-form>
+            <sign-up-form
+                v-if="isFormSelected('signUp')"
+                @ok="selectForm('signIn')"
+            ></sign-up-form>
         </div>
         <div id="login-right"></div>
     </div>

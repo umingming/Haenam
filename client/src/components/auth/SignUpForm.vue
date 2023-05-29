@@ -8,43 +8,35 @@
             <label for="pw">비밀번호</label>
             <input type="text" id="pw" v-model="pw" />
         </div>
-        <div class="login-keep">
-            <input type="checkbox" id="keep-check" v-model="keepLoggedIn" />
-            <label for="keep-check">로그인 상태 유지</label>
-        </div>
-        <button @click="login">로그인</button>
+        <button @click="signUp">회원가입</button>
     </div>
 </template>
 
 <script>
 import { mapMutations } from "vuex";
-import common from "@/api/common.js";
+import auth from "@/api/auth.js";
 export default {
     data() {
         return {
             id: "",
             pw: "",
-            keepLoggedIn: false,
         };
     },
     methods: {
         ...mapMutations(["SET_USER_ID"]),
-        async login() {
+        async signUp() {
             try {
-                const { data } = await common.login({
+                const { status } = await auth.register({
                     id: this.id,
                     pw: this.pw,
                 });
-
-                if (this.keepLoggedIn) {
-                    localStorage.setItem("user_id", data.user_id);
-                } else {
-                    sessionStorage.setItem("user_id", data.user_id);
+                if (status === 200) {
+                    this.$emit("ok", this.id);
                 }
-
-                this.$router.push("/main");
-            } catch (error) {
-                console.log(error);
+            } catch ({ status }) {
+                if (status === 409) {
+                    alert("존재하는 회원입니다");
+                }
             }
         },
     },

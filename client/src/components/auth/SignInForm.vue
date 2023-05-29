@@ -18,7 +18,7 @@
 
 <script>
 import { mapMutations } from "vuex";
-import common from "@/api/common.js";
+import auth from "@/api/auth.js";
 export default {
     data() {
         return {
@@ -31,7 +31,7 @@ export default {
         ...mapMutations(["SET_USER_ID"]),
         async login() {
             try {
-                const { data } = await common.login({
+                const { data } = await auth.login({
                     id: this.id,
                     pw: this.pw,
                 });
@@ -41,10 +41,14 @@ export default {
                 } else {
                     sessionStorage.setItem("user_id", data.user_id);
                 }
-
+                alert("로그인 성공");
                 this.$router.push("/main");
-            } catch (error) {
-                console.log(error);
+            } catch ({ status }) {
+                if (status === 404) {
+                    alert("존재하지 않는 아디디");
+                } else if (status === 401) {
+                    alert("비밀번호 불일치");
+                }
             }
         },
     },
