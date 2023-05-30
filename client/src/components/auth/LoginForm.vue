@@ -45,7 +45,7 @@ export default {
                 this.$router.push("/main");
             } catch (error) {
                 if (error.status === 401) {
-                    alert(error.data.error);
+                    alert(`유효하지 않은 ${error.data.error}`);
                 } else {
                     console.log(error);
                 }

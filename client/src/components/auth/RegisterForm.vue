@@ -6,7 +6,7 @@
         </div>
         <div class="login-text">
             <label for="pw">비밀번호</label>
-            <input type="text" id="pw" v-model="pw" />
+            <input type="password" id="pw" v-model="pw" />
         </div>
         <button @click="register">회원가입</button>
     </div>
@@ -31,6 +31,7 @@ export default {
                     pw: this.pw,
                 });
                 if (status === 200) {
+                    alert("회원가입 성공");
                     this.$emit("ok", this.id);
                 }
             } catch ({ status }) {
