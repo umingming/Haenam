@@ -47,3 +47,14 @@ export const BUTTONS = [
         iconClass: "fa-solid fa-xmark",
     },
 ];
+
+export const LABELS = [
+    {
+        name: "id",
+        text: "아이디",
+    },
+    {
+        name: "pw",
+        text: "비밀번호",
+    },
+];

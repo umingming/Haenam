@@ -8,6 +8,7 @@
                     :key="index"
                     :class="{ on: isFormSelected(index) }"
                     :name="name"
+                    :data-test="`button-${name}`"
                     @onClick="selectForm(index)"
                 >
                 </base-button>

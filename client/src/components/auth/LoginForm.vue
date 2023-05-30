@@ -1,13 +1,7 @@
 <template>
     <div id="login-form">
-        <div class="login-text">
-            <label for="id">아이디</label>
-            <input type="text" id="id" v-model="id" />
-        </div>
-        <div class="login-text">
-            <label for="pw">비밀번호</label>
-            <input type="password" id="pw" v-model="pw" />
-        </div>
+        <base-input v-model="id" name="id"></base-input>
+        <base-input v-model="pw" name="pw" type="password"></base-input>
         <div class="login-keep">
             <input type="checkbox" id="keep-check" v-model="keepLoggedIn" />
             <label for="keep-check">로그인 상태 유지</label>
@@ -17,9 +11,13 @@
 </template>
 
 <script>
+import BaseInput from "@/components/base/BaseInput.vue";
 import { mapMutations } from "vuex";
 import auth from "@/api/auth.js";
 export default {
+    components: {
+        BaseInput,
+    },
     data() {
         return {
             id: "",
