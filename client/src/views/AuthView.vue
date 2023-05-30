@@ -1,7 +1,7 @@
 <template>
     <div id="login" class="box">
         <div id="login-left">
-            <h1>오늘도 <span>해냄!</span></h1>
+            <h1 data-test="title">오늘도 <span>해냄!</span></h1>
             <div id="login-select">
                 <base-button
                     v-for="(name, index) in formNames"
