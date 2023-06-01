@@ -1,8 +1,8 @@
 <template>
-    <div id="login" class="box">
-        <div id="login-left">
+    <div id="auth" class="box">
+        <div id="auth-left">
             <h1 data-test="title">오늘도 <span>해냄!</span></h1>
-            <div id="login-select">
+            <div id="auth-select">
                 <base-button
                     v-for="(name, index) in formNames"
                     :key="index"
@@ -16,7 +16,7 @@
             <login-form v-if="isFormSelected(0)"></login-form>
             <register-form v-else @ok="selectForm(0)"></register-form>
         </div>
-        <div id="login-right"></div>
+        <div id="auth-right"></div>
     </div>
 </template>
 

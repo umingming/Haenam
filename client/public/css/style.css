@@ -45,14 +45,14 @@ button:hover {
   border-radius: 10px;
   overflow: hidden;
 }
-#login #login-left {
+#auth #auth-left {
   position: relative;
   float: left;
   height: 100%;
   width: 40%;
   text-align: center;
 }
-#login #login-right {
+#auth #auth-right {
   height: 100%;
   width: 60%;
   float: left;
@@ -61,42 +61,42 @@ button:hover {
   background-attachment: fixed;
   background-size: cover;
 }
-#login #login-left h1 {
+#auth #auth-left h1 {
   margin-top: 50px;
 }
-#login #login-left h1 span {
+#auth #auth-left h1 span {
   font-size: larger;
   color: rgb(73, 120, 250);
 }
-#login #login-left #login-select {
+#auth #auth-left #auth-select {
   position: relative;
   text-align: right;
   margin: 10px 20px;
 }
-#login #login-left #login-select button {
+#auth #auth-left #auth-select button {
   margin: 0 5px;
   background: none;
   border: none;
   color: #858585;
   cursor: pointer;
 }
-#login #login-left #login-select button.on {
+#auth #auth-left #auth-select button.on {
   color: rgb(73, 120, 250);
 }
-#login #login-left #login-form {
+#auth #auth-left #auth-form {
   position: relative;
   width: calc(100% -100px);
   height: 70%;
   padding: 10px 50px;
 }
-#login #login-left #login-form .login-text label {
+#auth #auth-left #auth-form .base-input label {
   display: block;
   text-align: left;
   margin: 10px auto;
   color: #858585;
   font-weight: 700;
 }
-#login #login-left #login-form .login-text input {
+#auth #auth-left #auth-form .base-input input {
   position: relative;
   left: 0;
   width: 93%;
@@ -109,17 +109,17 @@ button:hover {
   border-radius: 3px;
   outline: none;
 }
-#login #login-left #login-form .login-keep {
+#auth #auth-left #auth-form .login-keep {
   text-align: left;
 }
-#login #login-left #login-form .login-keep label {
+#auth #auth-left #auth-form .login-keep label {
   position: relative;
   top: -1px;
   color: #858585;
   margin-left: 5px;
   font-size: small;
 }
-#login #login-left #login-form button {
+#auth #auth-left #auth-form button {
   position: absolute;
   display: block;
   bottom: 20%;

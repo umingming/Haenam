@@ -1,21 +1,21 @@
 <template>
-    <div id="login-form">
-        <div class="login-text">
-            <label for="id">아이디</label>
-            <input type="text" id="id" v-model="id" />
-        </div>
-        <div class="login-text">
-            <label for="pw">비밀번호</label>
-            <input type="password" id="pw" v-model="pw" />
-        </div>
-        <button @click="register">회원가입</button>
+    <div id="auth-form">
+        <base-input v-model="id" name="id"></base-input>
+        <base-input v-model="pw" name="pw" type="password"></base-input>
+        <base-button name="register" @onClick="register"> </base-button>
     </div>
 </template>
 
 <script>
+import BaseInput from "@/components/base/BaseInput.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
 import { mapMutations } from "vuex";
 import auth from "@/api/auth.js";
 export default {
+    components: {
+        BaseInput,
+        BaseButton,
+    },
     data() {
         return {
             id: "",

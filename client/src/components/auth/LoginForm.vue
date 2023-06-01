@@ -1,22 +1,24 @@
 <template>
-    <div id="login-form">
+    <div id="auth-form">
         <base-input v-model="id" name="id"></base-input>
         <base-input v-model="pw" name="pw" type="password"></base-input>
         <div class="login-keep">
             <input type="checkbox" id="keep-check" v-model="keepLoggedIn" />
             <label for="keep-check">로그인 상태 유지</label>
         </div>
-        <button @click="login">로그인</button>
+        <base-button name="login" @onClick="login"> </base-button>
     </div>
 </template>
 
 <script>
 import BaseInput from "@/components/base/BaseInput.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
 import { mapMutations } from "vuex";
 import auth from "@/api/auth.js";
 export default {
     components: {
         BaseInput,
+        BaseButton,
     },
     data() {
         return {
