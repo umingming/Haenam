@@ -52,7 +52,7 @@
 
 <script>
 import draggable from "vuedraggable";
-import BaseButton from "@/components/base/BaseButton.vue";
+import BaseButton from "@/components/common/base/BaseButton.vue";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
     components: {

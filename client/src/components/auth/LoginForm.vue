@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import BaseInput from "@/components/base/BaseInput.vue";
-import BaseButton from "@/components/base/BaseButton.vue";
+import BaseInput from "@/components/common/base/BaseInput.vue";
+import BaseButton from "@/components/common/base/BaseButton.vue";
 import { mapMutations } from "vuex";
 import auth from "@/api/auth.js";
 export default {

@@ -23,7 +23,7 @@
 <script>
 import LoginForm from "@/components/auth/LoginForm.vue";
 import RegisterForm from "@/components/auth/RegisterForm.vue";
-import BaseButton from "@/components/base/BaseButton.vue";
+import BaseButton from "@/components/common/base/BaseButton.vue";
 export default {
     name: "AuthView",
     components: {

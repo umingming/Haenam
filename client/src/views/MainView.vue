@@ -12,7 +12,7 @@
 <script>
 import MainList from "@/components/main/MainList.vue";
 import MainCalendar from "@/components/main/MainCalendar.vue";
-import BaseButton from "@/components/base/BaseButton.vue";
+import BaseButton from "@/components/common/base/BaseButton.vue";
 export default {
     name: "MainView",
     components: {
