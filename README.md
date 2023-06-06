@@ -1,4 +1,4 @@
-
+![image](https://github.com/umingming/Haenam/assets/87955005/df2f7b75-53a6-4eb7-9be6-bb4aa13ad735)
 >  **해냄**은 Vue3와 Node.js 기반의 일정 관리 프로그램입니다. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👉 [구경하기](https://haenam.web.app/)<br />
 >  하루 평균 2시간으로 **총 20시간** 동안( 23.05.18 - 23.05.29 ) 진행한 개인 프로젝트입니다. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📝 [프로젝트 일지](https://www.notion.so/yumding/3db6eac81d084be0bad141eb1a4d798b)<br />
 
