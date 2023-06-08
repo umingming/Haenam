@@ -28,20 +28,21 @@ export default {
         };
     },
     methods: {
-        ...mapMutations(["SET_USER_ID"]),
+        ...mapMutations(["SET_USER_ID", "SET_LOGIN_STATUS"]),
         async login() {
             try {
-                const { data } = await auth.login({
-                    id: this.id,
-                    pw: this.pw,
-                });
+                const param = { id: this.id, pw: this.pw };
+                const { data } = await auth.login(param);
 
                 if (this.keepLoggedIn) {
-                    localStorage.setItem("user_id", data.user_id);
+                    localStorage.setItem("userId", data.user_id);
                 } else {
-                    sessionStorage.setItem("user_id", data.user_id);
+                    sessionStorage.setItem("userId", data.user_id);
                 }
+
                 alert("로그인 성공");
+
+                this.SET_LOGIN_STATUS(true);
                 this.$router.push("/main");
             } catch (error) {
                 if (error.status === 401) {

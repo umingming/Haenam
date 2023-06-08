@@ -22,10 +22,10 @@ const getters = {
 const actions = {
     async FETCH_JOURNALS({ commit }) {
         try {
-            const user_id =
-                sessionStorage.getItem("user_id") ||
-                localStorage.getItem("user_id");
-            const { data } = await journal.get({ user_id });
+            const userId =
+                sessionStorage.getItem("userId") ||
+                localStorage.getItem("userId");
+            const { data } = await journal.get({ user_id: userId });
             if (data) {
                 commit("SET_JOURNALS", data);
             }
@@ -36,10 +36,10 @@ const actions = {
     },
     async ADD_JOURNAL({ commit }, param) {
         try {
-            const user_id =
-                sessionStorage.getItem("user_id") ||
-                localStorage.getItem("user_id");
-            const { data } = await journal.add({ user_id, ...param });
+            const userId =
+                sessionStorage.getItem("userId") ||
+                localStorage.getItem("userId");
+            const { data } = await journal.add({ user_id: userId, ...param });
             commit("ADD_JOURNAL", data[0]);
             return data;
         } catch (error) {

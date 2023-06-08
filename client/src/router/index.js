@@ -14,6 +14,14 @@ const router = createRouter({
             path: "/auth",
             name: "AuthView",
             component: AuthView,
+            beforeEnter(to, from, next) {
+                const isLoggedIn = sessionStorage.getItem("loggedIn");
+                if (isLoggedIn) {
+                    next("/main");
+                } else {
+                    next();
+                }
+            },
         },
         {
             path: "/main",

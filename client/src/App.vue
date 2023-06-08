@@ -14,8 +14,7 @@ export default {
     },
     created() {
         const userId =
-            localStorage.getItem("user_id") ||
-            sessionStorage.getItem("user_id");
+            localStorage.getItem("userId") || sessionStorage.getItem("userId");
 
         const path = userId ? "main" : "auth";
         this.$router.push(`/${path}`);
