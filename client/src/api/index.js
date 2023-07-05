@@ -6,5 +6,5 @@ function create(url, options) {
     setInterceptors(instance);
     return instance;
 }
-const baseURL = "https://haenam-387106.du.r.appspot.com";
+const baseURL = "https://haenam-v2.du.r.appspot.com";
 export const apiInstance = create(baseURL);
