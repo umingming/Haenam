@@ -11,6 +11,7 @@ import InputBase from "@/components/common/input/InputBase.vue";
 import ButtonBase from "@/components/common/button/ButtonBase.vue";
 
 import { useAuthorityConfig } from "@/composables/authHandler";
+import { useRoutePath } from "@/composables/routeHandler";
 
 import AUTH from "@/api/auth.js";
 
@@ -19,8 +20,9 @@ export default {
         InputBase,
         ButtonBase,
     },
-    setup(_, { emit }) {
+    setup() {
         const { idRef, pwRef, authConfig } = useAuthorityConfig();
+        const { PATH, goPath } = useRoutePath();
 
         /**
          * 입력된 정보를 바탕으로 회원을 등록한다.
@@ -30,7 +32,7 @@ export default {
                 const { status } = await AUTH.register(authConfig.value);
                 if (status === 200) {
                     alert("회원가입 성공");
-                    emit("ok", idRef.value);
+                    goPath(PATH.LOGIN);
                 }
             } catch ({ status }) {
                 const message =

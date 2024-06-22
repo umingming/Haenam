@@ -16,7 +16,7 @@ import ButtonBase from "@/components/common/button/ButtonBase.vue";
 
 import { onMounted } from "vue";
 import { useLocalStorage } from "@/composables/dataHandler";
-import { useAuthorityConfig, useUserId } from "@/composables/authHandler";
+import { useAuthorityConfig, useUserInfo } from "@/composables/authHandler";
 import { useRoutePath } from "@/composables/routeHandler";
 
 import AUTH from "@/api/auth.js";
@@ -32,11 +32,10 @@ export default {
             useLocalStorage("rememberMe", false);
         const { item: userId, updateItem: updateUserId } =
             useLocalStorage("userId");
-        const { updateItem: updateLoggedIn } = useLocalStorage("loggedIn");
 
         //============================ Auth Config
         const { idRef, pwRef, authConfig } = useAuthorityConfig();
-        const { setUserIdBy } = useUserId();
+        const { afterLogin } = useUserInfo();
         const { PATH, goPath } = useRoutePath();
 
         async function login() {
@@ -48,8 +47,7 @@ export default {
                 updateUserId(rememberMe.value, idRef.value);
 
                 // 로그인 성공 정보 저장
-                setUserIdBy(data);
-                updateLoggedIn(true, true);
+                afterLogin(data);
                 alert("로그인 성공");
 
                 goPath(PATH.MAIN);
