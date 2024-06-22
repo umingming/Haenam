@@ -16,9 +16,8 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 export default {
-    components: {},
-    data() {
-        return {};
+    props: {
+        modelValue: { type: String },
     },
     computed: {
         ...mapGetters("journal", ["getJournals", "getSelectedDate"]),
@@ -36,12 +35,11 @@ export default {
             return journals;
         },
         attributeByDate() {
-            const dates = new Date(this.getSelectedDate);
+            const dates = new Date(this.modelValue);
             return [
                 {
                     dates,
                     highlight: true,
-                    customData: "test1",
                 },
             ];
         },
@@ -61,7 +59,7 @@ export default {
             // }
         },
         selectDate({ id }) {
-            this.SELECT_DATE(id);
+            this.$emit("update:modelValue", id);
         },
     },
 };

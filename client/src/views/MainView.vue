@@ -4,8 +4,8 @@
             <h1 id="logo">해냄</h1>
             <ButtonBase name="logout" @onClick="logout" />
         </header>
-        <MainCalendar />
-        <MainList />
+        <MainCalendar v-model="selectedDate" />
+        <MainList :date="selectedDate" />
     </div>
 </template>
 
@@ -14,6 +14,7 @@ import MainList from "@/components/main/MainList.vue";
 import MainCalendar from "@/components/main/MainCalendar.vue";
 import ButtonBase from "@/components/common/button/ButtonBase";
 
+import { ref } from "vue";
 import { useRoutePath } from "@/composables/routeHandler";
 
 export default {
@@ -24,6 +25,10 @@ export default {
         ButtonBase,
     },
     setup() {
+        //============================ Date
+        const selectedDate = ref(new Date().toISOString().slice(0, 10));
+
+        //============================ Logout
         const { PATH, goPath } = useRoutePath();
 
         /**
@@ -35,7 +40,7 @@ export default {
             goPath(PATH.LOGIN);
         }
 
-        return { logout };
+        return { selectedDate, logout };
     },
 };
 </script>

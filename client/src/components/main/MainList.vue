@@ -1,7 +1,7 @@
 <template>
     <div class="main-list">
         <div class="title">
-            <h2>{{ getSelectedDate }}</h2>
+            <h2>{{ date }}</h2>
         </div>
         <div class="journal-list">
             <draggable
@@ -40,10 +40,11 @@
             <div class="pending">
                 <ButtonBase name="add" @onClick="addJournal" />
                 <input
+                    ref="newJournalRef"
                     id="pending-journal"
                     placeholder="추가하기"
                     type="text"
-                    @keyup.enter="addJournal"
+                    @keyup.enter="addNewJournal"
                 />
             </div>
         </div>
@@ -55,17 +56,60 @@ import draggable from "vuedraggable";
 import ButtonBase from "@/components/common/button/ButtonBase";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 import { useUserJournal } from "@/composables/userHandler";
-import { onBeforeMount } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 export default {
     components: {
         draggable,
         ButtonBase,
     },
-    setup() {
-        const { fetchJournals } = useUserJournal();
+    props: {
+        date: { type: String },
+    },
+    setup(props) {
+        //============================ Journal
+        const { journals, fetchJournals, addJournal } = useUserJournal();
+
+        const dailyJournals = computed(() =>
+            journals.value.filter(({ date }) => date.startsWith(props.date))
+        );
+
+        //New Journal
+        const newJournalRef = ref(null);
+
+        /**
+         * 새로운 일정 추가
+         */
+        async function addNewJournal() {
+            const content = newJournalRef.value.value;
+            const { date } = props;
+
+            if (validateEvent() && content) {
+                await addJournal({ date, content });
+                //Input초기화
+                newJournalRef.value.value = "";
+            }
+        }
+
+        //============================ Event
+        const lastEventTime = ref(0);
+
+        function validateEvent() {
+            const currentTime = Date.now();
+            const eventInterval = currentTime - lastEventTime.value;
+            lastEventTime.value = currentTime;
+
+            return eventInterval > 500;
+        }
 
         // 일정 가져오기
-        onBeforeMount(fetchJournals)
+        onBeforeMount(fetchJournals);
+
+        return {
+            // Jounal
+            dailyJournals,
+            newJournalRef,
+            addNewJournal,
+        };
     },
     data() {
         return {
@@ -78,12 +122,6 @@ export default {
     computed: {
         ...mapState(["userId"]),
         ...mapGetters("journal", ["getJournals", "getSelectedDate"]),
-        dailyJournals() {
-            const journals = this.getJournals.filter((i) =>
-                i?.date.startsWith(this.getSelectedDate)
-            );
-            return journals;
-        },
         isSelectedJournal() {
             return ({ _id }) => this.selectedJournal._id == _id;
         },
@@ -111,33 +149,6 @@ export default {
         ...mapMutations("journal", ["UPDATE_JOURNAL_INDEX"]),
         init() {
             this.FETCH_JOURNALS();
-        },
-        updateDate(amount) {
-            const date = this.selectedDate.getDate() + amount;
-            this.selectedDate = new Date(this.selectedDate.setDate(date));
-        },
-        async addJournal() {
-            const currentTime = Date.now();
-            const eventInterval = currentTime - this.lastEventTime;
-            this.lastEventTime = currentTime;
-
-            if (eventInterval < 500) {
-                return;
-            }
-
-            const $input = document.querySelector("#pending-journal");
-            if (!$input?.value) return;
-
-            try {
-                const param = {
-                    content: $input.value,
-                    date: this.getSelectedDate,
-                };
-                await this.ADD_JOURNAL(param);
-                $input.value = "";
-            } catch (error) {
-                console.log(error);
-            }
         },
         async editJournal(journal) {
             const currentTime = Date.now();

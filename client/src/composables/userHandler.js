@@ -133,6 +133,7 @@ export function useUserJournal() {
     }
 
     return {
+        journals,
         fetchJournals,
         addJournal,
         editJournal,
