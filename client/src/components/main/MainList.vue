@@ -17,20 +17,20 @@
                         @click="showOption"
                     >
                         <input
-                            type="checkbox"
                             v-model="element.checked"
+                            type="checkbox"
                             @change="editJournal(element)"
                         />
                         <input
-                            type="text"
-                            :value="element.content"
                             :data-id="element._id"
                             :readonly="true"
-                            @focus="selectJournal(element)"
-                            @dblclick="startEditing"
+                            type="text"
+                            :value="element.content"
                             @blur="finishEditing"
-                            @keyup.enter="updateInputValue"
+                            @dblclick="startEditing"
+                            @focus="selectJournal(element)"
                             @keyup.backspace="handleBackspaceInput"
+                            @keyup.enter="updateInputValue"
                         />
                     </div>
                 </template>
@@ -40,9 +40,9 @@
             <div class="pending">
                 <base-button name="add" @onClick="addJournal"></base-button>
                 <input
-                    type="text"
                     id="pending-journal"
                     placeholder="추가하기"
+                    type="text"
                     @keyup.enter="addJournal"
                 />
             </div>

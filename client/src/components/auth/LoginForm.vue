@@ -3,7 +3,7 @@
         <base-input v-model="id" name="id"></base-input>
         <base-input v-model="pw" name="pw" type="password"></base-input>
         <div class="login-keep">
-            <input type="checkbox" id="keep-check" v-model="keepLoggedIn" />
+            <input id="keep-check" v-model="keepLoggedIn" type="checkbox" />
             <label for="keep-check">로그인 상태 유지</label>
         </div>
         <base-button name="login" @onClick="login"> </base-button>

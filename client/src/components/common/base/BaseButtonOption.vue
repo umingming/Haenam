@@ -3,8 +3,8 @@
         <base-button
             class="main-button"
             :name="buttonName"
-            @onClick="toggleOption"
             @onBlur="hideOption"
+            @onClick="toggleOption"
         ></base-button>
         <div class="option-box" :class="{ on: isShowOption }">
             <base-button

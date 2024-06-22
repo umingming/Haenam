@@ -8,6 +8,7 @@
 <script>
 import { BUTTONS } from "@/constants/common";
 export default {
+    name: "ButtonBase",
     props: {
         name: { type: String },
     },

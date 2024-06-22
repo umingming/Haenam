@@ -1,13 +1,13 @@
 <template>
     <div class="main-calendar">
         <v-calendar
-            trim-weeks
-            transparent
+            :attributes="attributeByDate"
             borderless
             expanded
-            :attributes="attributeByDate"
-            @dayclick="selectDate"
+            transparent
+            trim-weeks
             @click="selectDateByBox"
+            @dayclick="selectDate"
         >
         </v-calendar>
     </div>
@@ -48,12 +48,17 @@ export default {
     },
     methods: {
         ...mapMutations("journal", ["SELECT_DATE"]),
-        selectDateByBox({ target: { className } }) {
-            const pattern = /id-([\w-]+)/;
-            const id = className.match(pattern)?.[1];
-            if (id) {
-                this.selectDate({ id });
+        selectDateByBox({ target: { classList } }) {
+            if (classList.contains("vc-day")) {
+                const pattern = /id-([\w-]+)/;
+                const id = classList.value.match(pattern);
+                console.log(id);
             }
+            // const pattern = /id-([\w-]+)/;
+            // const id = className.match(pattern)?.[1];
+            // if (id) {
+            //     this.selectDate({ id });
+            // }
         },
         selectDate({ id }) {
             this.SELECT_DATE(id);
