@@ -84,20 +84,20 @@ button:hover {
 #auth #auth-left #auth-select button.on {
   color: rgb(73, 120, 250);
 }
-#auth #auth-left #auth-form {
+#auth #auth-left .auth-form {
   position: relative;
   width: calc(100% -100px);
   height: 70%;
   padding: 10px 50px;
 }
-#auth #auth-left #auth-form .base-input label {
+#auth #auth-left .auth-form .base-input label {
   display: block;
   text-align: left;
   margin: 10px auto;
   color: #858585;
   font-weight: 700;
 }
-#auth #auth-left #auth-form .base-input input {
+#auth #auth-left .auth-form .base-input input {
   position: relative;
   left: 0;
   width: 93%;
@@ -110,17 +110,17 @@ button:hover {
   border-radius: 3px;
   outline: none;
 }
-#auth #auth-left #auth-form .login-keep {
+#auth #auth-left .auth-form .login-keep {
   text-align: left;
 }
-#auth #auth-left #auth-form .login-keep label {
+#auth #auth-left .auth-form .login-keep label {
   position: relative;
   top: -1px;
   color: #858585;
   margin-left: 5px;
   font-size: small;
 }
-#auth #auth-left #auth-form button {
+#auth #auth-left .auth-form button {
   position: absolute;
   display: block;
   bottom: 20%;

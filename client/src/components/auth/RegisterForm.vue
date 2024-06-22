@@ -1,20 +1,20 @@
 <template>
-    <div id="auth-form">
-        <base-input v-model="id" name="id"></base-input>
-        <base-input v-model="pw" name="pw" type="password"></base-input>
-        <base-button name="register" @onClick="register"> </base-button>
+    <div class="auth-form">
+        <InputBase v-model="id" name="id" />
+        <InputBase v-model="pw" name="pw" type="password" />
+        <ButtonBase name="register" @onClick="register" />
     </div>
 </template>
 
 <script>
-import BaseInput from "@/components/common/base/BaseInput.vue";
-import BaseButton from "@/components/common/base/BaseButton.vue";
+import InputBase from "@/components/common/input/InputBase.vue";
+import ButtonBase from "@/components/common/button/ButtonBase.vue";
 import { mapMutations } from "vuex";
 import auth from "@/api/auth.js";
 export default {
     components: {
-        BaseInput,
-        BaseButton,
+        InputBase,
+        ButtonBase,
     },
     data() {
         return {
