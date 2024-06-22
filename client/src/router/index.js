@@ -24,7 +24,7 @@ const router = createRouter({
             ],
             redirect: "/login",
             beforeEnter(to, from, next) {
-                const isLoggedIn = sessionStorage.getItem("loggedIn");
+                const isLoggedIn = localStorage.getItem("loggedIn");
                 if (isLoggedIn) {
                     next("/main");
                 } else {
@@ -37,7 +37,7 @@ const router = createRouter({
             name: "MainView",
             component: MainView,
             beforeEnter(to, from, next) {
-                const isLoggedIn = sessionStorage.getItem("loggedIn");
+                const isLoggedIn = localStorage.getItem("loggedIn");
                 if (!isLoggedIn) {
                     next("/auth");
                 } else {

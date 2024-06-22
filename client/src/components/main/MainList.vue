@@ -9,7 +9,7 @@
                 :list="dailyJournals"
                 @end="updateJournalIndex"
             >
-                <template #item="{ element }">
+                <template v-slot:item="{ element }">
                     <div
                         class="journal"
                         :class="{ on: isSelectedJournal(element) }"
@@ -38,7 +38,7 @@
         </div>
         <div class="option">
             <div class="pending">
-                <base-button name="add" @onClick="addJournal"></base-button>
+                <ButtonBase name="add" @onClick="addJournal" />
                 <input
                     id="pending-journal"
                     placeholder="추가하기"
@@ -52,12 +52,12 @@
 
 <script>
 import draggable from "vuedraggable";
-import BaseButton from "@/components/common/base/BaseButton.vue";
+import ButtonBase from "@/components/common/button/ButtonBase";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
     components: {
         draggable,
-        BaseButton,
+        ButtonBase,
     },
     data() {
         return {

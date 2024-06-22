@@ -2,7 +2,7 @@
     <ButtonBase
         :class="{ on: isCurrentPath }"
         :name="pathName"
-        @onClick="goRoute"
+        @onClick="goPath(path)"
     />
 </template>
 
@@ -10,7 +10,6 @@
 import ButtonBase from "@/components/common/button/ButtonBase";
 
 import { computed } from "vue";
-import { useRouter } from "vue-router";
 import { useRoutePath } from "@/composables/routeHandler";
 
 export default {
@@ -23,23 +22,14 @@ export default {
     },
     setup(props) {
         //============================ Path
-        const { pathValidator } = useRoutePath();
+        const { pathValidator, goPath } = useRoutePath();
         const path = `/${props.pathName}`;
         const isCurrentPath = computed(() => pathValidator.value(path));
 
-        //============================ Router
-        const router = useRouter();
-
-        /**
-         * path 이동
-         */
-        function goRoute() {
-            router.push(path);
-        }
-
         return {
+            path,
             isCurrentPath,
-            goRoute,
+            goPath,
         };
     },
 };
