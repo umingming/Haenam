@@ -10,7 +10,7 @@
 import InputBase from "@/components/common/input/InputBase.vue";
 import ButtonBase from "@/components/common/button/ButtonBase.vue";
 
-import { useAuthorityConfig } from "@/composables/authHandler";
+import { useAuthorityConfig } from "@/composables/userHandler";
 import { useRoutePath } from "@/composables/routeHandler";
 
 import AUTH from "@/api/auth.js";

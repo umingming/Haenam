@@ -41,7 +41,7 @@ button:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 1200px;
-  height: 600px;
+  height: 650px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -184,16 +184,23 @@ header button {
 .vc-monthly .is-not-in-month * {
   opacity: 0.5;
 }
+.vc-weeks {
+  padding: 0 6px;
+}
 .vc-weekday {
   position: relative;
   transform: translate(29px, 3px);
   font-size: 15px;
   opacity: 0.5;
 }
+.vc-week {
+  position: relative;
+  height: 100%;
+}
 .vc-day {
   background: white;
   margin: 5px;
-  height: 80px;
+  height: 77px;
   border-radius: 5px;
   cursor: pointer;
 }

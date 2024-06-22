@@ -54,10 +54,18 @@
 import draggable from "vuedraggable";
 import ButtonBase from "@/components/common/button/ButtonBase";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
+import { useUserJournal } from "@/composables/userHandler";
+import { onBeforeMount } from "vue";
 export default {
     components: {
         draggable,
         ButtonBase,
+    },
+    setup() {
+        const { fetchJournals } = useUserJournal();
+
+        // 일정 가져오기
+        onBeforeMount(fetchJournals)
     },
     data() {
         return {

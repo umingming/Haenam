@@ -16,7 +16,7 @@ import ButtonBase from "@/components/common/button/ButtonBase.vue";
 
 import { onMounted } from "vue";
 import { useLocalStorage } from "@/composables/dataHandler";
-import { useAuthorityConfig, useUserInfo } from "@/composables/authHandler";
+import { useAuthorityConfig, useUserInfo } from "@/composables/userHandler";
 import { useRoutePath } from "@/composables/routeHandler";
 
 import AUTH from "@/api/auth.js";
@@ -53,7 +53,8 @@ export default {
                 goPath(PATH.MAIN);
             } catch (error) {
                 if (error.status === 401) {
-                    alert(`유효하지 않은 ${error.data.error}`);
+                    console.log(error);
+                    alert(`유효하지 않은 ${error.data.error.message}`);
                 } else {
                     console.log(error);
                 }
