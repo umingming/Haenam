@@ -18,18 +18,18 @@
                         <input
                             v-model="element.checked"
                             type="checkbox"
-                            @change="editJournal(element)"
+                            @change="checkJournal(index)"
                         />
                         <input
+                            v-model="element.content"
                             :data-id="element._id"
                             :readonly="true"
                             type="text"
-                            :value="element.content"
                             @blur="finishEditing"
                             @dblclick="startEditing"
-                            @focus="selectJournal(element)"
+                            @focus="selectJournal(index)"
                             @keyup.backspace="removeJournalBy"
-                            @keyup.enter="updateInputValue"
+                            @keyup.enter="editJournalBy(index)"
                         />
                     </div>
                 </template>
@@ -65,8 +65,13 @@ export default {
     },
     setup(props) {
         //============================ Journal
-        const { journals, fetchJournals, addJournal, removeJournal } =
-            useUserJournal();
+        const {
+            journals,
+            fetchJournals,
+            addJournal,
+            editJournal,
+            removeJournal,
+        } = useUserJournal();
 
         const dailyJournals = computed(() =>
             journals.value.filter(({ date }) => date.startsWith(props.date))
@@ -74,8 +79,19 @@ export default {
 
         //Selection
         const selectedIndex = ref(-1);
-        const isSelected = computed(() => index => index === selectedIndex);
+        const selectedJournal = computed(
+            () => dailyJournals.value[selectedIndex.value]
+        );
+        const isSelected = computed(
+            () => (index) => index === selectedIndex.value
+        );
 
+        /**
+         * @param {Number} index
+         */
+        function selectJournal(index) {
+            selectedIndex.value = index;
+        }
 
         //Add
         const newJournalRef = ref(null);
@@ -94,6 +110,41 @@ export default {
             }
         }
 
+        // Editing
+        /**
+         * @param {MouseEvent} event
+         * @param {Object} target
+         */
+        function startEditing({ target }) {
+            target.readOnly = false;
+            target.focus();
+        }
+
+        /**
+         * @param {MouseEvent} event
+         * @param {Object} target
+         */
+        function finishEditing({ target }) {
+            const { content = "" } = selectedJournal.value;
+            target.readOnly = true;
+            target.value = content;
+        }
+
+        /**
+         * index를 기준으로 Journal checked 상태 토글
+         * @param {Number} index
+         */
+        async function checkJournal(index) {
+            editJournalBy(index);
+        }
+
+        async function editJournalBy(index = selectedIndex.value) {
+            if (validateEvent()) {
+                const journal = dailyJournals.value[index];
+                await editJournal(journal);
+            }
+        }
+
         // Remove
         /**
          * @param {KeyboardEvent} event
@@ -101,7 +152,6 @@ export default {
          */
         async function removeJournalBy({ target: { dataset, value }, repeat }) {
             if (!repeat && !value) {
-                console.log(dataset.id);
                 await removeJournal(dataset.id);
             }
         }
@@ -129,6 +179,13 @@ export default {
 
             //Selection
             isSelected,
+            selectJournal,
+
+            //Edit
+            startEditing,
+            finishEditing,
+            checkJournal,
+            editJournalBy,
         };
     },
     data() {
@@ -187,9 +244,6 @@ export default {
                 console.log(error);
             }
         },
-        selectJournal(journal) {
-            this.selectedJournal = journal;
-        },
         deselectJournal() {
             const { _id } = this.selectedJournal;
             const $input = document.querySelector(`[data-id="${_id}"]`);
@@ -205,19 +259,6 @@ export default {
             const fromIndex = findJournalIndex(oldIndex);
             const toIndex = findJournalIndex(newIndex);
             this.UPDATE_JOURNAL_INDEX({ fromIndex, toIndex });
-        },
-        editInput(id) {
-            const $input = document.querySelector(`[data-id="${id}"]`);
-            this.startEditing({ target: $input });
-        },
-        startEditing({ target }) {
-            target.readOnly = false;
-            target.focus();
-        },
-        finishEditing({ target }) {
-            const { content = "" } = this.getJournalById(target.dataset.id);
-            target.readOnly = true;
-            target.value = content;
         },
         updateInputValue({ target: { dataset, value } }) {
             const journal = this.getJournalById(dataset.id);
