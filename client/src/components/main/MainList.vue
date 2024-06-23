@@ -4,11 +4,7 @@
             <h2>{{ date }}</h2>
         </div>
         <div class="journal-list">
-            <draggable
-                v-bind="{ animation: 150 }"
-                :list="dailyJournals"
-                @end="updateJournalIndex"
-            >
+            <draggable v-bind="{ animation: 150 }" :list="dailyJournals">
                 <template v-slot:item="{ element, index }">
                     <div
                         class="journal"
@@ -28,7 +24,7 @@
                             @blur="finishEditing"
                             @dblclick="startEditing"
                             @focus="selectJournal(index)"
-                            @keyup.backspace="removeJournalBy"
+                            @keydown.backspace="removeJournalBy"
                             @keyup.enter="editJournalBy(index)"
                         />
                     </div>
@@ -37,7 +33,7 @@
         </div>
         <div class="option">
             <div class="pending">
-                <ButtonBase name="add" @onClick="addJournal" />
+                <ButtonBase name="add" @onClick="addNewJournal" />
                 <input
                     ref="newJournalRef"
                     placeholder="추가하기"
@@ -128,9 +124,13 @@ export default {
          * @param {Object} target
          */
         function finishEditing({ target }) {
-            const { content = "" } = selectedJournal.value;
+            const { content = "" } = selectedJournal.value ?? {};
             target.readOnly = true;
             target.value = content;
+
+            // 편집 초기화
+            selectedIndex.value = -1;
+            editingRef.value = null;
         }
 
         /**
@@ -148,16 +148,18 @@ export default {
             if (validateEvent()) {
                 const journal = dailyJournals.value[index];
                 await editJournal(journal);
-                editingRef.value.blur();
+
+                // edit input blur 처리
+                editingRef.value?.blur();
             }
         }
 
         // Remove
         /**
          * @param {KeyboardEvent} event
-         *
          */
         async function removeJournalBy({ target: { dataset, value }, repeat }) {
+            // keydown에서 현재 값이 없을 경우 삭제 수행
             if (!repeat && !value) {
                 await removeJournal(dataset.id);
             }
@@ -166,6 +168,9 @@ export default {
         //============================ Event
         const lastEventTime = ref(0);
 
+        /**
+         * 이벤트 검증
+         */
         function validateEvent() {
             const currentTime = Date.now();
             const eventInterval = currentTime - lastEventTime.value;

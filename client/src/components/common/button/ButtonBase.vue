@@ -1,47 +1,25 @@
 <template>
-    <button :class="buttonClass" @blur="handleEvent" @click="handleEvent">
-        <i :class="buttonInfo('iconClass')"></i>
-        {{ buttonInfo("text") }}
+    <button :class="buttonClass" @click="$emit('onClick')">
+        <i :class="buttonConfig.iconClass"></i>
+        {{ buttonConfig.text }}
     </button>
 </template>
 
 <script>
+import { computed } from "vue";
 import { BUTTONS } from "@/constants/common";
 export default {
     name: "ButtonBase",
     props: {
         name: { type: String },
     },
-    data() {
-        return {
-            lastEventTime: 0,
-            lastEvent: "",
-        };
-    },
-    computed: {
-        button() {
-            return BUTTONS.find((i) => i.name === this.name);
-        },
-        buttonInfo() {
-            return (type) => this.button[type];
-        },
-        buttonClass() {
-            return `button-${this.name}`;
-        },
-    },
-    methods: {
-        handleEvent({ type }) {
-            const event = `on${type[0].toUpperCase()}${type.slice(1)}`;
-            const eventTime = Date.now();
-            const eventInterval = eventTime - this.lastEventTime;
+    setup(props) {
+        const buttonConfig = computed(() =>
+            BUTTONS.find(({ name }) => name === props.name)
+        );
+        const buttonClass = computed(() => `button-${props.name}`);
 
-            if (event !== this.lastEvent || eventInterval > 500) {
-                this.$emit(event, this.name);
-            }
-
-            this.lastEvent = event;
-            this.lastEventTime = eventTime;
-        },
+        return { buttonConfig, buttonClass };
     },
 };
 </script>

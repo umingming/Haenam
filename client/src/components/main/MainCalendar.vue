@@ -1,66 +1,45 @@
 <template>
     <div class="main-calendar">
-        <v-calendar
-            :attributes="attributeByDate"
+        <VCalendar
+            :attributes="[attribute]"
             borderless
             expanded
             transparent
             trim-weeks
             @click="selectDateByBox"
-            @dayclick="selectDate"
-        >
-        </v-calendar>
+            @dayclick="$emit('update:modelValue', $event.id)"
+        />
     </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { computed } from "vue";
+
 export default {
     props: {
         modelValue: { type: String },
     },
-    computed: {
-        ...mapGetters("journal", ["getJournals", "getSelectedDate"]),
-        isSelected() {
-            return ({ id }) => {
-                return id === this.getSelectedDate;
-            };
-        },
-        formattedJournals() {
-            const formatJournal = (journal) => ({
-                dates: new Date(journal.date),
-                journal,
-            });
-            const journals = this.getJournals.map((i) => formatJournal(i));
-            return journals;
-        },
-        attributeByDate() {
-            const dates = new Date(this.modelValue);
-            return [
-                {
-                    dates,
-                    highlight: true,
-                },
-            ];
-        },
-    },
-    methods: {
-        ...mapMutations("journal", ["SELECT_DATE"]),
-        selectDateByBox({ target: { classList } }) {
+    setup(props, { emit }) {
+        const attribute = computed(() => ({
+            dates: new Date(props.modelValue),
+            highlight: true,
+        }));
+
+        /**
+         * @param {MouseEvent} event
+         * @param {Object} event.target
+         */
+        function selectDateByBox({ target: { classList } }) {
+            // click한 target이 day box인지 검증
             if (classList.contains("vc-day")) {
                 const pattern = /id-([\w-]+)/;
-                const id = classList.value.match(pattern);
-                console.log(id);
+                // 날짜 추출해 이벤트 올림.
+                const id = classList.value.match(pattern)[1];
+                emit("update:modelValue", id);
             }
-            // const pattern = /id-([\w-]+)/;
-            // const id = className.match(pattern)?.[1];
-            // if (id) {
-            //     this.selectDate({ id });
-            // }
-        },
-        selectDate({ id }) {
-            this.$emit("update:modelValue", id);
-        },
+        }
+
+        return { attribute, selectDateByBox };
     },
 };
 </script>
