@@ -125,11 +125,11 @@ export function useUserJournal() {
     }
 
     /**
-     * @param {Number} id
+     * @param {String} id
      * @returns {Number}
      */
     function findJournalIndexBy(id) {
-        return journals.value.findIndex(({ _id }) => _id === id);
+        return journals.value.findIndex(({ _id }) => _id == id);
     }
 
     return {

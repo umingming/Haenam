@@ -9,12 +9,11 @@
                 :list="dailyJournals"
                 @end="updateJournalIndex"
             >
-                <template v-slot:item="{ element }">
+                <template v-slot:item="{ element, index }">
                     <div
                         class="journal"
-                        :class="{ on: isSelectedJournal(element) }"
+                        :class="{ on: isSelected(index) }"
                         :data-id="element._id"
-                        @click="showOption"
                     >
                         <input
                             v-model="element.checked"
@@ -29,7 +28,7 @@
                             @blur="finishEditing"
                             @dblclick="startEditing"
                             @focus="selectJournal(element)"
-                            @keyup.backspace="handleBackspaceInput"
+                            @keyup.backspace="removeJournalBy"
                             @keyup.enter="updateInputValue"
                         />
                     </div>
@@ -41,7 +40,6 @@
                 <ButtonBase name="add" @onClick="addJournal" />
                 <input
                     ref="newJournalRef"
-                    id="pending-journal"
                     placeholder="추가하기"
                     type="text"
                     @keyup.enter="addNewJournal"
@@ -67,13 +65,19 @@ export default {
     },
     setup(props) {
         //============================ Journal
-        const { journals, fetchJournals, addJournal } = useUserJournal();
+        const { journals, fetchJournals, addJournal, removeJournal } =
+            useUserJournal();
 
         const dailyJournals = computed(() =>
             journals.value.filter(({ date }) => date.startsWith(props.date))
         );
 
-        //New Journal
+        //Selection
+        const selectedIndex = ref(-1);
+        const isSelected = computed(() => index => index === selectedIndex);
+
+
+        //Add
         const newJournalRef = ref(null);
 
         /**
@@ -87,6 +91,18 @@ export default {
                 await addJournal({ date, content });
                 //Input초기화
                 newJournalRef.value.value = "";
+            }
+        }
+
+        // Remove
+        /**
+         * @param {KeyboardEvent} event
+         *
+         */
+        async function removeJournalBy({ target: { dataset, value }, repeat }) {
+            if (!repeat && !value) {
+                console.log(dataset.id);
+                await removeJournal(dataset.id);
             }
         }
 
@@ -109,6 +125,10 @@ export default {
             dailyJournals,
             newJournalRef,
             addNewJournal,
+            removeJournalBy,
+
+            //Selection
+            isSelected,
         };
     },
     data() {
@@ -116,7 +136,6 @@ export default {
             selectedJournal: {},
             lastEventTime: 0,
             journals: [],
-            isShowOptions: false,
         };
     },
     computed: {
@@ -168,16 +187,6 @@ export default {
                 console.log(error);
             }
         },
-        handleBackspaceInput({ target: { dataset, value }, repeat }) {
-            if (!repeat && !value) this.removeJournal(dataset.id);
-        },
-        async removeJournal(id) {
-            try {
-                await this.REMOVE_JOURNAL(id);
-            } catch (error) {
-                console.log(error);
-            }
-        },
         selectJournal(journal) {
             this.selectedJournal = journal;
         },
@@ -218,12 +227,6 @@ export default {
         getJournalById(id) {
             const journal = this.dailyJournals.find((i) => i._id == id);
             return journal ?? {};
-        },
-        toggleOptions() {
-            this.isShowOptions = !this.isShowOptions;
-        },
-        showOption({ target }) {
-            console.dir(target);
         },
     },
 };
