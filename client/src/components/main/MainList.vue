@@ -52,9 +52,9 @@
 <script>
 import draggable from "vuedraggable";
 import ButtonBase from "@/components/common/button/ButtonBase";
-import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
-import { useUserJournal } from "@/composables/userHandler";
 import { computed, onBeforeMount, ref } from "vue";
+import { useUserJournal } from "@/composables/userHandler";
+
 export default {
     components: {
         draggable,
@@ -111,11 +111,14 @@ export default {
         }
 
         // Editing
+        const editingRef = ref(null);
+
         /**
          * @param {MouseEvent} event
          * @param {Object} target
          */
         function startEditing({ target }) {
+            editingRef.value = target;
             target.readOnly = false;
             target.focus();
         }
@@ -138,10 +141,14 @@ export default {
             editJournalBy(index);
         }
 
+        /**
+         * @param {Number} index
+         */
         async function editJournalBy(index = selectedIndex.value) {
             if (validateEvent()) {
                 const journal = dailyJournals.value[index];
                 await editJournal(journal);
+                editingRef.value.blur();
             }
         }
 
@@ -187,88 +194,6 @@ export default {
             checkJournal,
             editJournalBy,
         };
-    },
-    data() {
-        return {
-            selectedJournal: {},
-            lastEventTime: 0,
-            journals: [],
-        };
-    },
-    computed: {
-        ...mapState(["userId"]),
-        ...mapGetters("journal", ["getJournals", "getSelectedDate"]),
-        isSelectedJournal() {
-            return ({ _id }) => this.selectedJournal._id == _id;
-        },
-        logo() {
-            const incompleteJournals = this.dailyJournals?.filter(
-                (i) => !i.checked
-            );
-            const allJournalsCompleted =
-                this.dailyJournals?.length !== 0 &&
-                incompleteJournals?.length === 0;
-
-            return allJournalsCompleted ? "해냄!" : "해냄?";
-        },
-    },
-    created() {
-        this.init();
-    },
-    methods: {
-        ...mapActions("journal", [
-            "FETCH_JOURNALS",
-            "ADD_JOURNAL",
-            "EDIT_JOURNAL",
-            "REMOVE_JOURNAL",
-        ]),
-        ...mapMutations("journal", ["UPDATE_JOURNAL_INDEX"]),
-        init() {
-            this.FETCH_JOURNALS();
-        },
-        async editJournal(journal) {
-            const currentTime = Date.now();
-            const eventInterval = currentTime - this.lastEventTime;
-            this.lastEventTime = currentTime;
-
-            if (eventInterval < 500) {
-                return;
-            }
-
-            const { _id, content, checked } = journal || this.selectedJournal;
-            this.deselectJournal();
-
-            try {
-                await this.EDIT_JOURNAL({ _id, content, checked });
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        deselectJournal() {
-            const { _id } = this.selectedJournal;
-            const $input = document.querySelector(`[data-id="${_id}"]`);
-
-            if ($input) $input.blur();
-            this.selectedJournal = {};
-        },
-        updateJournalIndex({ oldIndex, newIndex }) {
-            const findJournalIndex = (index) =>
-                this.getJournals.findIndex(
-                    (i) => i._id === this.dailyJournals[index]._id
-                );
-            const fromIndex = findJournalIndex(oldIndex);
-            const toIndex = findJournalIndex(newIndex);
-            this.UPDATE_JOURNAL_INDEX({ fromIndex, toIndex });
-        },
-        updateInputValue({ target: { dataset, value } }) {
-            const journal = this.getJournalById(dataset.id);
-            journal.content = value;
-            this.editJournal();
-        },
-        getJournalById(id) {
-            const journal = this.dailyJournals.find((i) => i._id == id);
-            return journal ?? {};
-        },
     },
 };
 </script>
