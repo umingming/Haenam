@@ -2,31 +2,45 @@
     <div id="main" class="box">
         <header>
             <h1 id="logo">해냄</h1>
-            <base-button name="logout" @onClick="logout"></base-button>
+            <ButtonBase name="logout" @onClick="logout" />
         </header>
-        <main-calendar></main-calendar>
-        <main-list></main-list>
+        <MainCalendar v-model="selectedDate" />
+        <MainList :date="selectedDate" />
     </div>
 </template>
 
 <script>
 import MainList from "@/components/main/MainList.vue";
 import MainCalendar from "@/components/main/MainCalendar.vue";
-import BaseButton from "@/components/common/base/BaseButton.vue";
+import ButtonBase from "@/components/common/button/ButtonBase";
+
+import { ref } from "vue";
+import { useRoutePath } from "@/composables/routeHandler";
+
 export default {
     name: "MainView",
     components: {
         MainList,
         MainCalendar,
-        BaseButton,
+        ButtonBase,
     },
-    methods: {
-        logout() {
+    setup() {
+        //============================ Date
+        const selectedDate = ref(new Date().toISOString().slice(0, 10));
+
+        //============================ Logout
+        const { PATH, goPath } = useRoutePath();
+
+        /**
+         * 사용자 정보를 모두 지운 후 로그인 페이지로 이동
+         */
+        function logout() {
             localStorage.clear();
             sessionStorage.clear();
+            goPath(PATH.LOGIN);
+        }
 
-            this.$router.push("/auth");
-        },
+        return { selectedDate, logout };
     },
 };
 </script>

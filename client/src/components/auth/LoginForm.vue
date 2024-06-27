@@ -1,57 +1,71 @@
 <template>
-    <div id="auth-form">
-        <base-input v-model="id" name="id"></base-input>
-        <base-input v-model="pw" name="pw" type="password"></base-input>
+    <div class="auth-form">
+        <InputBase v-model="idRef" name="id" />
+        <InputBase v-model="pwRef" name="pw" type="password" />
         <div class="login-keep">
-            <input type="checkbox" id="keep-check" v-model="keepLoggedIn" />
-            <label for="keep-check">로그인 상태 유지</label>
+            <input id="keep-check" v-model="rememberMe" type="checkbox" />
+            <label for="keep-check">Remember Me</label>
         </div>
-        <base-button name="login" @onClick="login"> </base-button>
+        <ButtonBase name="login" @onClick="login" />
     </div>
 </template>
 
 <script>
-import BaseInput from "@/components/common/base/BaseInput.vue";
-import BaseButton from "@/components/common/base/BaseButton.vue";
-import { mapMutations } from "vuex";
-import auth from "@/api/auth.js";
+import InputBase from "@/components/common/input/InputBase.vue";
+import ButtonBase from "@/components/common/button/ButtonBase.vue";
+
+import { onMounted } from "vue";
+import { useLocalStorage } from "@/composables/dataHandler";
+import { useAuthorityConfig, useUserInfo } from "@/composables/userHandler";
+import { useRoutePath } from "@/composables/routeHandler";
+
+import AUTH from "@/api/auth.js";
+
 export default {
     components: {
-        BaseInput,
-        BaseButton,
+        InputBase,
+        ButtonBase,
     },
-    data() {
-        return {
-            id: "",
-            pw: "",
-            keepLoggedIn: false,
-        };
-    },
-    methods: {
-        ...mapMutations(["SET_USER_ID", "SET_LOGIN_STATUS"]),
-        async login() {
+    setup() {
+        //============================ LocalStorage
+        const { item: rememberMe, updateItem: updateRememberMe } =
+            useLocalStorage("rememberMe", false);
+        const { item: userId, updateItem: updateUserId } =
+            useLocalStorage("userId");
+
+        //============================ Auth Config
+        const { idRef, pwRef, authConfig } = useAuthorityConfig();
+        const { afterLogin } = useUserInfo();
+        const { PATH, goPath } = useRoutePath();
+
+        async function login() {
             try {
-                const param = { id: this.id, pw: this.pw };
-                const { data } = await auth.login(param);
+                const { data } = await AUTH.login(authConfig.value);
 
-                if (this.keepLoggedIn) {
-                    localStorage.setItem("userId", data.user_id);
-                } else {
-                    sessionStorage.setItem("userId", data.user_id);
-                }
+                // localStorage 엄데이트
+                updateRememberMe();
+                updateUserId(rememberMe.value, idRef.value);
 
+                // 로그인 성공 정보 저장
+                afterLogin(data);
                 alert("로그인 성공");
 
-                this.SET_LOGIN_STATUS(true);
-                this.$router.push("/main");
+                goPath(PATH.MAIN);
             } catch (error) {
                 if (error.status === 401) {
-                    alert(`유효하지 않은 ${error.data.error}`);
+                    console.log(error);
+                    alert(`유효하지 않은 ${error.data.error.message}`);
                 } else {
                     console.log(error);
                 }
             }
-        },
+        }
+
+        onMounted(() => {
+            idRef.value = userId.value;
+        });
+
+        return { rememberMe, idRef, pwRef, login };
     },
 };
 </script>
