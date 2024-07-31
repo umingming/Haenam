@@ -19,6 +19,7 @@ module.exports = function (db) {
             if (err) return res.status(500).json();
 
             const { total } = result;
+            // 이전 인덱스 찾기
             db.collection("journal").insertOne(
                 { _id: total, content, date, user_id },
                 (err, result) => {
