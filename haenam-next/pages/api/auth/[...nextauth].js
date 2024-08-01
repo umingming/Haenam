@@ -6,8 +6,8 @@ import GithubProvider from "next-auth/providers/github";
 export const authOptions = {
     providers: [
         GithubProvider({
-            clientId: "Ov23li9JhK90xwaUTK7O",
-            clientSecret: "c87b5c1fbde1e01d1089b57bca3fea5656575694",
+            clientId: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
         }),
     ],
 
@@ -38,7 +38,7 @@ export const authOptions = {
         },
     },
 
-    secret: "java1234",
+    secret: process.env.SECRET,
     adapter: MongoDBAdapter(connectDB),
 };
 export default NextAuth(authOptions);
