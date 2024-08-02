@@ -1,0 +1,382 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+#app {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/background.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+#wrapper {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: #ffffff1d;
+    transition: background linear 0.5s;
+}
+#wrapper.off {
+    background: #ffffff76;
+    transition: background linear 0.5s;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #c2c2c2;
+}
+button:hover {
+    color: rgb(73, 120, 250);
+}
+
+.box {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1200px;
+    height: 650px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#auth #auth-left {
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 40%;
+    text-align: center;
+}
+#auth #auth-right {
+    height: 100%;
+    width: 60%;
+    float: left;
+    background-image: url(../img/background.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+#auth #auth-left h1 {
+    margin-top: 50px;
+}
+#auth #auth-left h1 span {
+    font-size: larger;
+    color: rgb(73, 120, 250);
+}
+#auth #auth-left #auth-select {
+    position: relative;
+    text-align: right;
+    margin: 10px 20px;
+}
+#auth #auth-left #auth-select button {
+    margin: 0 5px;
+    background: none;
+    border: none;
+    color: #858585;
+    cursor: pointer;
+}
+#auth #auth-left #auth-select button.on {
+    color: rgb(73, 120, 250);
+}
+#auth #auth-left .auth-form {
+    position: relative;
+    width: calc(100% -100px);
+    height: 70%;
+    padding: 10px 50px;
+}
+#auth #auth-left .auth-form .base-input label {
+    display: block;
+    text-align: left;
+    margin: 10px auto;
+    color: #858585;
+    font-weight: 700;
+}
+#auth #auth-left .auth-form .base-input input {
+    position: relative;
+    left: 0;
+    width: 93%;
+    height: 30px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    line-height: 30px;
+    padding: 0 10px;
+    border: 1px solid #a7a7a7;
+    border-radius: 3px;
+    outline: none;
+}
+#auth #auth-left .auth-form .login-keep {
+    text-align: left;
+}
+#auth #auth-left .auth-form .login-keep label {
+    position: relative;
+    top: -1px;
+    color: #858585;
+    margin-left: 5px;
+    font-size: small;
+}
+#auth #auth-left .auth-form button {
+    position: absolute;
+    display: block;
+    bottom: 20%;
+    width: 80%;
+    height: 45px;
+    font-size: x-large;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    background: rgb(73, 120, 250);
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    cursor: pointer;
+}
+
+.box#main {
+    text-align: center;
+}
+#main header {
+    position: relative;
+    margin: auto 10px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #f0eff4;
+}
+#logo {
+    text-align: left;
+    font-size: 25px;
+    color: rgb(73, 120, 250);
+}
+header button {
+    position: absolute;
+    top: 10px;
+    right: 40px;
+}
+#main .title {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    margin: 10px auto;
+    font-size: 15px;
+}
+.main-calendar {
+    position: relative;
+    float: left;
+    width: 60%;
+    height: 100%;
+    background: rgba(73, 120, 250, 0.097);
+}
+.vc-pane-header-wrapper {
+    width: 25% !important;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.vc-title {
+    font-size: 18px;
+}
+.vc-monthly .is-not-in-month * {
+    opacity: 0.5;
+}
+.vc-weeks {
+    padding: 0 6px;
+}
+.vc-weekday {
+    position: relative;
+    transform: translate(29px, 3px);
+    font-size: 15px;
+    opacity: 0.5;
+}
+.vc-week {
+    position: relative;
+    height: 100%;
+}
+.vc-day {
+    background: white;
+    margin: 5px;
+    height: 77px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.vc-day .vc-day-content {
+    font-size: 15px;
+    font-weight: 500 !important;
+    transform: translate(29px, -25px);
+    width: 25px;
+    height: 25px;
+}
+.vc-day:hover .vc-day-content {
+    background: #2564eb17;
+}
+.vc-highlight {
+    transform: translate(29px, -24px);
+    background: #2563eb;
+    width: 25px;
+    height: 25px;
+}
+.day-content {
+    font-size: 10px;
+    transform: translate(3px, 2px);
+}
+
+.main-list {
+    position: relative;
+    display: inline-block;
+    width: 40%;
+    height: 100%;
+    z-index: 2 !important;
+}
+.journal-list {
+    position: relative;
+    top: 0px;
+    width: 100%;
+    margin-top: 50px;
+    max-height: 70%;
+    overflow-y: auto;
+    overflow-x: visible !important;
+}
+.journal-list::-webkit-scrollbar {
+    cursor: pointer;
+    width: 8px;
+}
+.journal-list::-webkit-scrollbar-thumb {
+    background: rgba(73, 120, 250, 0.303) !important;
+    border-radius: 5px;
+}
+.journal-list .journal {
+    position: relative;
+    background: rgba(73, 120, 250, 0.097);
+    z-index: 1;
+    height: 35px;
+    margin: 10px 40px;
+    border-radius: 10px;
+    padding: 2px;
+    cursor: pointer;
+}
+.journal input[type="checkbox"] {
+    transform: translate(-3px, 2px);
+    z-index: 1;
+    accent-color: rgb(73, 120, 250);
+    cursor: pointer;
+}
+.journal input[type="text"] {
+    position: relative;
+    top: 7px;
+    left: 5px;
+    border: none;
+    outline: none;
+    width: 90%;
+    font-size: 15px;
+    background: transparent;
+    border-bottom: 1px solid black;
+    cursor: auto;
+}
+.journal input[type="text"]:read-only {
+    border-bottom: none;
+    cursor: pointer;
+}
+.main-list .pending {
+    position: relative;
+    left: 40px;
+    width: 400px;
+    margin-top: 20px;
+}
+.main-list .pending .button-add {
+    position: absolute;
+    left: 8px;
+    top: 0px;
+    width: 20px;
+    font-size: large;
+}
+.main-list .pending input {
+    width: 90%;
+    padding: auto 10px;
+    margin-left: 30px;
+    outline: none;
+    border: none;
+    font-size: 14px;
+}
+.journal-list .button-option {
+    position: absolute;
+    transform: translateX(-25px);
+    z-index: 100;
+}
+
+.main-button {
+    position: absolute;
+    top: 6px;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    color: #c2c2c2;
+    line-height: 20px;
+    border-radius: 10px;
+}
+.main-button:hover,
+.button-close {
+    background: rgb(73, 120, 250);
+    color: white;
+}
+.option-box {
+    position: absolute;
+    top: -72px;
+    left: -30px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.116);
+    transform-origin: left bottom;
+    transform: scale(0);
+    transition: transform 0.4s ease-in;
+    overflow: hidden;
+}
+.option-box.on {
+    transform: scale(1);
+    transition: transform 0.4s linear;
+}
+@keyframes scaleUp {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.option-box button {
+    display: block;
+    height: 25px;
+    width: 56px;
+    margin: 3px;
+    border-radius: 2px;
+    color: #8b8b8b;
+}
+.option-box button:hover {
+    background: rgba(73, 120, 250, 0.034);
+    color: #616161;
+    font-weight: 600;
+    transform: scale(1.02);
+}
+.option-box :deep button:hover i {
+    transform: scale(1.2);
+}
+.option-box button::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    width: 52px;
+    border-bottom: 1px solid #c2c2c256;
+    transform: translateY(23px);
+}
+.option-box button:last-child {
+    padding-bottom: 1px;
+}
+.option-box button:last-child::after {
+    border-bottom: none;
+}
+.option-box :deep button i {
+    width: 14px;
+}

@@ -27,7 +27,7 @@ export const authOptions = {
             return Object.assign(session, { user });
         },
         async signIn({ user }) {
-            const users = await getCollection('users');
+            const users = await getCollection("users");
             const { email } = user;
             const existingUser = await users.findOne({ email });
 

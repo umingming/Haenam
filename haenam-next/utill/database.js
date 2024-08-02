@@ -4,7 +4,6 @@ const options = { useNewUrlParser: true };
 let connectDB;
 
 if (process.env.NODE_ENV === "development") {
-    // 연결 오버헤드 감소
     if (!global._mongo) {
         global._mongo = new MongoClient(url, options).connect();
     }

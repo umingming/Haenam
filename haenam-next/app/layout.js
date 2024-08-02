@@ -3,6 +3,7 @@ import { ButtonLogin, ButtonLogout } from "@/components/common/button";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import "./globals.css";
+import "@/public/css/style.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,8 +18,11 @@ export default async function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className={inter.className}>
-                {session ? <ButtonLogout /> : <ButtonLogin />}
-                {children}
+                <div id="app">
+                    <div id="wrapper" className="off">
+                        {children}
+                    </div>
+                </div>
             </body>
         </html>
     );
