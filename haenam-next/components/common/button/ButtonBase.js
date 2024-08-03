@@ -4,11 +4,13 @@ import PropTypes from "prop-types";
 import { BUTTON_KEY as KEY } from "@/constants/keyConstants";
 import { BUTTON_CONFIGS } from "@/constants/uiConstants";
 
-export default function ButtonBase({ action }) {
-    const config = BUTTON_CONFIGS.find(config => config[KEY.ACTION] === action);
+export default function ButtonBase({ action, onClick }) {
+    const config = BUTTON_CONFIGS.find(
+        (config) => config[KEY.ACTION] === action,
+    );
 
     if (!config) {
-        console.error("Button is not defined")
+        console.error("Button is not defined");
         return null;
     }
 
@@ -17,7 +19,7 @@ export default function ButtonBase({ action }) {
     const text = config[KEY.TEXT];
 
     return (
-        <button className={buttonClass}>
+        <button className={buttonClass} onClick={onClick}>
             {iconClass && <i className={iconClass}></i>}
             {text}
         </button>
@@ -26,4 +28,9 @@ export default function ButtonBase({ action }) {
 
 ButtonBase.propTypes = {
     action: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
+};
+
+ButtonBase.defaultProps = {
+    onClick: () => {},
 };
