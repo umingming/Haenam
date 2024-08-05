@@ -3,8 +3,8 @@
 import PropTypes from "prop-types"
 import { InputBase } from "@/components/common/input";;
 
-export default function InputGroup({ type = "text", onChange = () => {} }) {
-    const labelText = type.replace(/^[a-z]/, match => match.toUpperCase());
+export default function InputGroup({ name, type = "text", onChange = () => {} }) {
+    const labelText = name.replace(/^[a-z]/, match => match.toUpperCase());
 
     return (
         <div className="mt-1 mb-4">
@@ -17,13 +17,14 @@ export default function InputGroup({ type = "text", onChange = () => {} }) {
                 </label>
             </div>
             <div className="mt-1">
-                <InputBase type={type} onChange={onChange} />
+                <InputBase name={name} type={type} onChange={onChange} />
             </div>
         </div>
     );
 }
 
 InputGroup.propTypes = {
+    name: PropTypes.string.isRequired,
     type: PropTypes.string,
     onChange: PropTypes.func,
 };
