@@ -1,6 +1,6 @@
-import { BUTTON_KEY, ACTION_KEY } from "@/constants/keyConstants"
+import { BUTTON_KEY, ACTION_KEY } from "@/constants/keyConstants";
 
-type Action = typeof ACTION_KEY[keyof typeof ACTION_KEY];
+type Action = (typeof ACTION_KEY)[keyof typeof ACTION_KEY];
 
 export interface ButtonConfig {
     [BUTTON_KEY.ACTION]: Action;

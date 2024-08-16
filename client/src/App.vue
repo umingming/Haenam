@@ -4,11 +4,11 @@
     </div>
 </template>
 
-<script>
-import { computed } from "vue";
+<script lang="ts">
+import { defineComponent, computed } from "vue";
 import { useRoutePath } from "@/composables/routeHandler";
 
-export default {
+export default defineComponent({
     name: "App",
     setup() {
         const { PATH, pathValidator } = useRoutePath();
@@ -19,7 +19,15 @@ export default {
 
         return { wrapperStyle };
     },
-};
+});
 </script>
 
-<style></style>
+<style>
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+}
+</style>

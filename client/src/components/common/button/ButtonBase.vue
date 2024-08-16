@@ -7,7 +7,9 @@
 
 <script>
 import { computed } from "vue";
-import { BUTTONS } from "@/constants/common";
+import { BUTTON_KEY } from "@/constants/keyConstants";
+import { BUTTON_CONFIGS } from "@/constants/uiConstants";
+
 export default {
     name: "ButtonBase",
     props: {
@@ -15,7 +17,9 @@ export default {
     },
     setup(props) {
         const buttonConfig = computed(() =>
-            BUTTONS.find(({ name }) => name === props.name)
+            BUTTON_CONFIGS.find(
+                (config) => config[BUTTON_KEY.ACTION] === props.name
+            )
         );
         const buttonClass = computed(() => `button-${props.name}`);
 

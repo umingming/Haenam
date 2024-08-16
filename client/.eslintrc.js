@@ -6,13 +6,12 @@ module.exports = {
     },
     plugins: ["vue", "prettier"],
     extends: [
-        "plugin:vue/essential",
+        "plugin:vue/vue3-essential",
         "eslint:recommended",
-        "plugin:prettier/recommended",
+        "@vue/typescript",
     ],
     parserOptions: {
-        ecmaVersion: 2020,
-        sourceType: "module",
+        parser: "@typescript-eslint/parser",
     },
     rules: {
         "prettier/prettier": [
