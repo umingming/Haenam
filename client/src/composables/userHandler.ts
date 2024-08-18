@@ -1,59 +1,48 @@
-import { ref, readonly, computed } from "vue";
+import { ref, computed } from "vue";
+import { AUTH_KEY, USER_KEY } from "@/constants/keyConstants";
+import { AuthConfig, UserConfig } from "@/types/userTypes";
+import { JournalConfig } from "@/types/journalTypes";
 
 //============================ useAuthorityConfig
 export function useAuthorityConfig() {
-    const KEY = readonly({
-        ID: "id",
-        PW: "pw",
-    });
-
     // Key를 개별 필드로 관리
-    const idRef = ref("");
-    const pwRef = ref("");
+    const idRef = ref<string>("");
+    const pwRef = ref<string>("");
 
     // config 반응형 객체 정의
-    const authConfig = computed(() => ({
-        [KEY.ID]: idRef.value,
-        [KEY.PW]: pwRef.value,
+    const authConfig = computed<AuthConfig>(() => ({
+        [AUTH_KEY.ID]: idRef.value,
+        [AUTH_KEY.PW]: pwRef.value,
     }));
 
-    return { KEY, idRef, pwRef, authConfig };
+    return { idRef, pwRef, authConfig };
 }
 
 //============================ useUserId
 import { useLocalStorage } from "@/composables/dataHandler";
 
 export function useUserInfo() {
-    const KEY = readonly({
-        ID: "user_id",
-        LOGGED_IN: "loggedIn",
-    });
-
     // userId 정보를 localStorage에서 가져온다.
-    const { item: userId, updateItem: updateUserId } = useLocalStorage(KEY.ID);
-    const { setItem: setLoggedIn } = useLocalStorage(KEY.LOGGED_IN);
+    const { item: userId, updateItem: updateUserId } = useLocalStorage(
+        USER_KEY.ID
+    );
+    const { setItem: setLoggedIn } = useLocalStorage(USER_KEY.LOGGED_IN);
 
-    const userIdConfig = computed(() => ({ [KEY.ID]: userId.value }));
+    const userIdConfig = computed<UserConfig>(() => ({
+        [USER_KEY.ID]: String(userId.value),
+    }));
 
-    /**
-     * 로그인한 유저의 id를 저장한다.
-     * @param {Object} config
-     */
-    function afterLogin(config) {
-        updateUserId(true, config[KEY.ID]);
+    function afterLogin(config: UserConfig) {
+        updateUserId(true, config[USER_KEY.ID]);
         setLoggedIn(true);
     }
 
-    /**
-     * Id 제거
-     */
     function beforeLogout() {
         updateUserId(false);
         setLoggedIn(false);
     }
 
     return {
-        KEY,
         userId,
         userIdConfig,
         afterLogin,
@@ -64,7 +53,7 @@ export function useUserInfo() {
 //============================ useUserJournal
 import JOURNAL from "@/api/journal.js";
 
-const journals = ref([]);
+const journals = ref<JournalConfig[]>([]);
 
 export function useUserJournal() {
     const { userIdConfig } = useUserInfo();
@@ -81,10 +70,7 @@ export function useUserJournal() {
         }
     }
 
-    /**
-     * @param {Object} journal
-     */
-    async function addJournal(journal) {
+    async function addJournal(journal: JournalConfig) {
         try {
             const { data } = await JOURNAL.add(
                 Object.assign(journal, userIdConfig.value)
@@ -95,10 +81,7 @@ export function useUserJournal() {
         }
     }
 
-    /**
-     * @param {Object} journal
-     */
-    async function editJournal(journal) {
+    async function editJournal(journal: JournalConfig) {
         try {
             const { data } = await JOURNAL.edit(journal);
             const index = findJournalIndexBy(data._id);
@@ -108,10 +91,7 @@ export function useUserJournal() {
         }
     }
 
-    /**
-     * @param {Number} id
-     */
-    async function removeJournal(id) {
+    async function removeJournal(id: number) {
         try {
             await JOURNAL.remove(id);
             const index = findJournalIndexBy(id);
@@ -124,11 +104,7 @@ export function useUserJournal() {
         }
     }
 
-    /**
-     * @param {String} id
-     * @returns {Number}
-     */
-    function findJournalIndexBy(id) {
+    function findJournalIndexBy(id: string | number) {
         return journals.value.findIndex(({ _id }) => _id == id);
     }
 

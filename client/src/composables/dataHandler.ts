@@ -1,17 +1,17 @@
 import { ref } from "vue";
 
-type ValueType = string | boolean;
+type Value = string | boolean;
 
-export function useLocalStorage(key: string, defaultValue: ValueType = "") {
-    const item = ref<ValueType>(localStorage.getItem(key) ?? defaultValue);
+export function useLocalStorage(key: string, defaultValue: Value = "") {
+    const item = ref<Value>(localStorage.getItem(key) ?? defaultValue);
 
-    function setItem(value: ValueType = item.value): void {
+    function setItem(value: Value = item.value): void {
         if (value) {
             localStorage.setItem(key, String(value));
         }
     }
 
-    function updateItem(shouldSave: boolean = true, value?: ValueType): void {
+    function updateItem(shouldSave: boolean = true, value?: Value): void {
         if (shouldSave) {
             setItem(value);
         } else {
