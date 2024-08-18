@@ -2,7 +2,7 @@
     <div id="main" class="box">
         <header>
             <h1 id="logo">해냄</h1>
-            <ButtonBase name="logout" @onClick="logout" />
+            <ButtonBase action="logout" @onClick="logout" />
         </header>
         <MainCalendar v-model="selectedDate" />
         <MainList :date="selectedDate" />

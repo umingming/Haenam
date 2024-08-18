@@ -1,7 +1,7 @@
 <template>
     <ButtonBase
+        :action="pathName"
         :class="{ on: isCurrentPath }"
-        :name="pathName"
         @onClick="goPath(path)"
     />
 </template>
@@ -23,7 +23,7 @@ export default {
     setup(props) {
         //============================ Path
         const { pathValidator, goPath } = useRoutePath();
-        const path = `/${props.pathName}`;
+        const path = computed(() => `/${props.pathName}`);
         const isCurrentPath = computed(() => pathValidator.value(path));
 
         return {

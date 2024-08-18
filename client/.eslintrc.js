@@ -40,5 +40,6 @@ module.exports = {
                 alphabetical: true,
             },
         ],
+        "no-debugger": "off",
     },
 };

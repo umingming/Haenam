@@ -33,7 +33,7 @@
         </div>
         <div class="option">
             <div class="pending">
-                <ButtonBase name="add" @onClick="addNewJournal" />
+                <ButtonBase action="add" @onClick="addNewJournal" />
                 <input
                     ref="newJournalRef"
                     placeholder="추가하기"

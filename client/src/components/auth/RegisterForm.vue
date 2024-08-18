@@ -2,7 +2,7 @@
     <div class="auth-form">
         <InputBase v-model="idRef" name="id" />
         <InputBase v-model="pwRef" name="pw" type="password" />
-        <ButtonBase name="register" @onClick="register" />
+        <ButtonBase action="register" @onClick="register" />
     </div>
 </template>
 

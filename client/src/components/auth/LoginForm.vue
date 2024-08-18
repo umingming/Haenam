@@ -6,7 +6,7 @@
             <input id="keep-check" v-model="rememberMe" type="checkbox" />
             <label for="keep-check">Remember Me</label>
         </div>
-        <ButtonBase name="login" @onClick="login" />
+        <ButtonBase action="login" @onClick="login" />
     </div>
 </template>
 
