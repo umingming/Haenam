@@ -5,13 +5,13 @@ type ValueType = string | boolean;
 export function useLocalStorage(key: string, defaultValue: ValueType = "") {
     const item = ref<ValueType>(localStorage.getItem(key) ?? defaultValue);
 
-    function setItem(value: ValueType = item.value) {
+    function setItem(value: ValueType = item.value): void {
         if (value) {
             localStorage.setItem(key, String(value));
         }
     }
 
-    function updateItem(shouldSave: boolean = true, value?: ValueType) {
+    function updateItem(shouldSave: boolean = true, value?: ValueType): void {
         if (shouldSave) {
             setItem(value);
         } else {
