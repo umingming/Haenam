@@ -11,19 +11,17 @@
 </template>
 
 <script>
-import { LABELS } from "@/constants/common";
 import { computed } from "vue";
+
 export default {
     props: {
         modelValue: { type: String, required: true },
         name: { type: String },
         type: { type: String, default: "text" },
+        text: { type: String },
     },
     setup(props) {
-        const label = computed(() => {
-            const { text } = LABELS.find(({ name }) => name === props.name);
-            return text;
-        });
+        const label = computed(() => props.text || props.name);
 
         return { label };
     },

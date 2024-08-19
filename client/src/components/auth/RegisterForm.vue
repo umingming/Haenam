@@ -1,7 +1,7 @@
 <template>
     <div class="auth-form">
-        <InputBase v-model="idRef" name="id" />
-        <InputBase v-model="pwRef" name="pw" type="password" />
+        <InputBase v-model="idRef" name="id" text="아이디" />
+        <InputBase v-model="pwRef" name="pw" text="비밀번호" type="password" />
         <ButtonBase action="register" @onClick="register" />
     </div>
 </template>
@@ -13,7 +13,7 @@ import ButtonBase from "@/components/common/button/ButtonBase.vue";
 import { useAuthorityConfig } from "@/composables/userHandler";
 import { useRoutePath } from "@/composables/routeHandler";
 
-import AUTH from "@/api/auth.js";
+import AUTH from "@/api/auth";
 
 export default {
     components: {

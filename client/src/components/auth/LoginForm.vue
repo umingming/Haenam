@@ -1,7 +1,7 @@
 <template>
     <div class="auth-form">
-        <InputBase v-model="idRef" name="id" />
-        <InputBase v-model="pwRef" name="pw" type="password" />
+        <InputBase v-model="idRef" name="id" text="아이디" />
+        <InputBase v-model="pwRef" name="pw" text="비밀번호" type="password" />
         <div class="login-keep">
             <input id="keep-check" v-model="rememberMe" type="checkbox" />
             <label for="keep-check">Remember Me</label>
@@ -19,7 +19,7 @@ import { useLocalStorage } from "@/composables/dataHandler";
 import { useAuthorityConfig, useUserInfo } from "@/composables/userHandler";
 import { useRoutePath } from "@/composables/routeHandler";
 
-import AUTH from "@/api/auth.js";
+import AUTH from "@/api/auth";
 
 export default {
     components: {

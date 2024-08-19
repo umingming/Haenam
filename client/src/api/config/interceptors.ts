@@ -1,13 +1,19 @@
-function setInterceptors(instance) {
+import {
+    AxiosInstance,
+    InternalAxiosRequestConfig,
+    AxiosResponse,
+} from "axios";
+
+function setInterceptors(instance: AxiosInstance): AxiosInstance {
     instance.interceptors.request.use(
-        (config) => {
+        (config: InternalAxiosRequestConfig) => {
             config.headers["Content-Type"] = "application/json";
             return config;
         },
         (error) => Promise.reject(error.response)
     );
     instance.interceptors.response.use(
-        (config) => config,
+        (responce: AxiosResponse) => responce,
         (error) => Promise.reject(error.response)
     );
     return instance;

@@ -51,7 +51,7 @@ export function useUserInfo() {
 }
 
 //============================ useUserJournal
-import JOURNAL from "@/api/journal.js";
+import JOURNAL from "@/api/journal";
 
 const journals = ref<JournalConfig[]>([]);
 
