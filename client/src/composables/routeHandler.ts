@@ -11,13 +11,11 @@ export function useRoutePath() {
     const route = useRoute();
     const router = useRouter();
     // path를 인자로 현재 route path와 비교
-    const pathValidator = computed(() => (path) => route.path === path);
+    const pathValidator = computed(() => {
+        return (path: string): boolean => route.path === path;
+    });
 
-    /**
-     * path로 이동한다
-     * @param {String} path
-     */
-    function goPath(path) {
+    function goPath(path: string) {
         router.push(path);
     }
 
