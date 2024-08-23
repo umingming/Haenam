@@ -1,8 +1,12 @@
-"use client"
+"use client";
 
-import PropTypes from "prop-types";
+import { InputProps } from "@/types/input";
 
-export default function InputBase({ name, type = "text", onChange = () => {} }) {
+export default function InputBase({
+    name,
+    type = "text",
+    onChange = () => {},
+}: InputProps) {
     return (
         <input
             name={name}
@@ -12,9 +16,3 @@ export default function InputBase({ name, type = "text", onChange = () => {} }) 
         />
     );
 }
-
-InputBase.propTypes = {
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string,
-    onChange: PropTypes.func,
-};

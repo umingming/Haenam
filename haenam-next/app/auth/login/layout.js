@@ -1,4 +1,4 @@
-import { ButtonLink } from "@/components/common/button";
+import { ButtonLink } from "@/components/common/button.js";
 import { getProviders, signIn } from "next-auth/react";
 
 export default async function AuthLayout({ children }) {

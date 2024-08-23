@@ -1,10 +1,15 @@
-"use client"
+"use client";
 
-import PropTypes from "prop-types"
-import { InputBase } from "@/components/common/input";;
+import PropTypes from "prop-types";
+import { InputBase } from "@/components/common/input";
+import styled from "styled-component"
 
-export default function InputGroup({ name, type = "text", onChange = () => {} }) {
-    const labelText = name.replace(/^[a-z]/, match => match.toUpperCase());
+export default function InputGroup({
+    name,
+    type = "text",
+    onChange = () => {},
+}) {
+    const labelText = name.replace(/^[a-z]/, (match) => match.toUpperCase());
 
     return (
         <div className="mt-1 mb-4">
