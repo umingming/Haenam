@@ -1,9 +1,6 @@
 import { InputGroup } from "@/components/common/input";
-import { getProviders, signIn } from "next-auth/react";
 
 export default async function Auth() {
-    const providers = await getProviders();
-
     return (
         <div id="auth" className="box">
             <div id="auth-left">
@@ -21,16 +18,6 @@ export default async function Auth() {
                             Sign in
                         </button>
                     </div>
-
-                    <p className="mt-10 text-center text-sm text-gray-500">
-                        Not a member?
-                        <a
-                            href="#"
-                            className="font-semibold leading-6 text-blue-600 hover:text-blue-500"
-                        >
-                            Start a 14 day free trial
-                        </a>
-                    </p>
                 </div>
             </div>
             <div id="auth-right"></div>

@@ -1,14 +1,14 @@
 "use client";
 
-import PropTypes from "prop-types";
 import { InputBase } from "@/components/common/input";
-import styled from "styled-component"
+import { InputProps } from "@/types/input";
 
 export default function InputGroup({
     name,
     type = "text",
     onChange = () => {},
-}) {
+}: InputProps) {
+    
     const labelText = name.replace(/^[a-z]/, (match) => match.toUpperCase());
 
     return (
@@ -27,9 +27,3 @@ export default function InputGroup({
         </div>
     );
 }
-
-InputGroup.propTypes = {
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string,
-    onChange: PropTypes.func,
-};
