@@ -1,9 +1,9 @@
 import { BUTTON_KEY } from "@/constants/keyConstants";
 import { Action } from "./action";
 
-export interface ButtonProps {
+export interface ButtonProps
+    extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     [BUTTON_KEY.ACTION]: Action;
-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface ButtonConfig {

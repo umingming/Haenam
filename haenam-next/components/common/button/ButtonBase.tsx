@@ -6,6 +6,7 @@ import { BUTTON_CONFIGS } from "@/constants/uiConstants";
 
 export default function ButtonBase({
     action,
+    className,
     onClick = () => {},
 }: ButtonProps) {
     const config = BUTTON_CONFIGS.find(
@@ -17,7 +18,7 @@ export default function ButtonBase({
         return null;
     }
 
-    const buttonClass = `button-${action}`;
+    const buttonClass = `button-${action} ${className}`;
     const iconClass = config[KEY.ICON_CLASS];
     const text = config[KEY.TEXT];
 

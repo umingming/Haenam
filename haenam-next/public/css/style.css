@@ -30,9 +30,6 @@ button {
     cursor: pointer;
     color: #c2c2c2;
 }
-button:hover {
-    color: rgb(73, 120, 250);
-}
 
 .box {
     position: relative;
