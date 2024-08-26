@@ -1,6 +1,7 @@
 import { ACTION_KEY, BUTTON_KEY } from "./keyConstants";
+import { ButtonConfig } from "@/types/button";
 
-export const BUTTON_CONFIGS = [
+export const BUTTON_CONFIGS: ButtonConfig[] = [
     {
         [BUTTON_KEY.ACTION]: ACTION_KEY.ADD,
         [BUTTON_KEY.ICON_CLASS]: "fa-solid fa-circle-plus",

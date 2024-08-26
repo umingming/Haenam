@@ -8,7 +8,6 @@ export default function InputGroup({
     type = "text",
     onChange = () => {},
 }: InputProps) {
-    
     const labelText = name.replace(/^[a-z]/, (match) => match.toUpperCase());
 
     return (

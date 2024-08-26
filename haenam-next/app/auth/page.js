@@ -1,4 +1,7 @@
 import { InputGroup } from "@/components/common/input";
+import { ButtonBase } from "@/components/common/button";
+
+import { ACTION_KEY } from "@/constants/keyConstants";
 
 export default async function Auth() {
     return (
@@ -11,12 +14,7 @@ export default async function Auth() {
                     <InputGroup name="email" type="email" />
                     <InputGroup name="password" type="password" />
                     <div className="mt-5">
-                        <button
-                            type="submit"
-                            className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-                        >
-                            Sign in
-                        </button>
+                        <ButtonBase action={ACTION_KEY.LOGIN} />
                     </div>
                 </div>
             </div>

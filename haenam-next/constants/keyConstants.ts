@@ -10,10 +10,10 @@ export const ACTION_KEY = {
     REGISTER: "register",
     REMOVE: "remove",
     RIGHT: "right",
-};
+} as const;
 
 export const BUTTON_KEY = {
     ACTION: "action",
     TEXT: "text",
     ICON_CLASS: "iconClass",
-};
+} as const;

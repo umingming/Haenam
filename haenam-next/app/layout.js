@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import { ButtonLogin, ButtonLogout } from "@/components/common/button";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import "./globals.css";

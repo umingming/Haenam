@@ -1,10 +1,13 @@
 "use client";
 
-import PropTypes from "prop-types";
+import { ButtonProps } from "@/types/button";
 import { BUTTON_KEY as KEY } from "@/constants/keyConstants";
 import { BUTTON_CONFIGS } from "@/constants/uiConstants";
 
-export default function ButtonBase({ action, onClick }) {
+export default function ButtonBase({
+    action,
+    onClick = () => {},
+}: ButtonProps) {
     const config = BUTTON_CONFIGS.find(
         (config) => config[KEY.ACTION] === action,
     );
@@ -25,12 +28,3 @@ export default function ButtonBase({ action, onClick }) {
         </button>
     );
 }
-
-ButtonBase.propTypes = {
-    action: PropTypes.string.isRequired,
-    onClick: PropTypes.func,
-};
-
-ButtonBase.defaultProps = {
-    onClick: () => {},
-};
