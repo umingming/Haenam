@@ -6,9 +6,7 @@ export function useInputHandler(initValue: string = "") {
     const [value, setValue] = useState(initValue);
 
     function handleValue(event: React.ChangeEvent<HTMLInputElement>) {
-        const {
-            target: { value: newValue },
-        } = event;
+        const { value: newValue } = event.target;
         setValue(newValue);
     }
 

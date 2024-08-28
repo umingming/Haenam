@@ -18,7 +18,7 @@ export default async function RootLayout({ children }) {
         <html lang="en">
             <body className={inter.className}>
                 <div id="app">
-                    <div id="wrapper" className="off">
+                    <div className="off" id="wrapper">
                         {children}
                     </div>
                 </div>

@@ -1,14 +1,25 @@
 {
     "extends": [
-        "next/core-web-vitals",
-        "airbnb",
-        "airbnb-typescript",
-        "prettier"
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/jsx-runtime"
     ],
     "parserOptions": {
         "project": "./jsconfig.json"
     },
+    "plugins": ["react", "react-hooks", "@typescript-eslint"],
     "rules": {
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-sort-props": [
+            "error",
+            {
+                "reservedFirst": ["key", "ref"],
+                "callbacksLast": true,
+                "shorthandFirst": true,
+                "ignoreCase": true,
+                "noSortAlphabetically": false
+            }
+        ]
     }
 }

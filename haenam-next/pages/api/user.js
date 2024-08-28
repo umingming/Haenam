@@ -8,7 +8,7 @@ export default async function handler({ method, body }, response) {
             return response.status(400).json("유저 정보 필수 입력");
         }
         try {
-            const userCollection = await getCollection("user");
+            const userCollection = await getCollection("users");
             if (await userCollection.findOne({ email })) {
                 return response.status(400).json("존재하는 유저다.");
             }
@@ -17,10 +17,8 @@ export default async function handler({ method, body }, response) {
             const hash = await bcrypt.hash(body.password, 10);
             body.password = hash;
 
-            // 관리자 여부
-            body.isAdmin = body.isAdmin === "on";
             await userCollection.insertOne(body);
-            return response.status(200).redirect("/");
+            return response.status(200).redirect("/auth");
         } catch (error) {
             return response.status(500).json("에러났다.");
         }

@@ -11,7 +11,7 @@ export default function Auth() {
     const { value: password, handleValue: handlePassword } = useInputHandler();
 
     return (
-        <div id="auth" className="box">
+        <div className="box" id="auth">
             <div id="auth-left">
                 <h1>
                     오늘도 <span>해냄!</span>
@@ -20,16 +20,18 @@ export default function Auth() {
                     <InputGroup
                         name="email"
                         type="email"
+                        value={email}
                         onChange={handleEmail}
                     />
                     <InputGroup
                         name="password"
                         type="password"
+                        value={password}
                         onChange={handlePassword}
                     />
                     <div className="mt-5">
                         <ButtonBase
-                            action={ACTION_KEY.LOGIN}
+                            action={ACTION_KEY.REGISTER}
                             className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
                         />
                     </div>
