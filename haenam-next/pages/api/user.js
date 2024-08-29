@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 export default async function handler({ method, body }, response) {
     if (method === "POST") {
-        const { email, password } = body;
+        const { email, password } = JSON.parse(body);
         if (!email || !password) {
             return response.status(400).json("유저 정보 필수 입력");
         }
@@ -17,8 +17,8 @@ export default async function handler({ method, body }, response) {
             const hash = await bcrypt.hash(body.password, 10);
             body.password = hash;
 
-            await userCollection.insertOne(body);
-            return response.status(200).redirect("/auth");
+            const result = await userCollection.insertOne(body);
+            return response.status(200).json(result);
         } catch (error) {
             return response.status(500).json("에러났다.");
         }

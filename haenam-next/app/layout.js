@@ -3,6 +3,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import "./globals.css";
 import "@/public/css/style.css";
+import ModalAlert from "@/components/common/modal/ModalAlert"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default async function RootLayout({ children }) {
         <html lang="en">
             <body className={inter.className}>
                 <div id="app">
+                    <ModalAlert />
                     <div className="off" id="wrapper">
                         {children}
                     </div>

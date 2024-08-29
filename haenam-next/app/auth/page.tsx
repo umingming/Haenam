@@ -5,10 +5,18 @@ import { ButtonBase } from "@/components/common/button";
 import { ACTION_KEY } from "@/constants/keyConstants";
 
 import { useInputHandler } from "@/hooks/useUIHandler";
+import { useFetchData } from "@/hooks/useDataHandler";
 
 export default function Auth() {
     const { value: email, handleValue: handleEmail } = useInputHandler();
     const { value: password, handleValue: handlePassword } = useInputHandler();
+
+    const { createData } = useFetchData();
+
+    async function registerUser() {
+        const result = await createData("/api/user", { email, password });
+        console.log("result", result);
+    }
 
     return (
         <div className="box" id="auth">
@@ -33,6 +41,7 @@ export default function Auth() {
                         <ButtonBase
                             action={ACTION_KEY.REGISTER}
                             className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
+                            onClick={registerUser}
                         />
                     </div>
                 </div>
