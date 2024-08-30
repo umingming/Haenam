@@ -15,7 +15,9 @@ export default function Auth() {
 
     async function registerUser() {
         const result = await createData("/api/user", { email, password });
-        console.log("result", result);
+        if (result) {
+            alert("회원가입 성공!")
+        }
     }
 
     return (
@@ -39,8 +41,15 @@ export default function Auth() {
                     />
                     <div className="mt-5">
                         <ButtonBase
-                            action={ACTION_KEY.REGISTER}
+                            action={ACTION_KEY.LOGIN}
                             className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
+                            onClick={registerUser}
+                        />
+                    </div>
+                    <div className="mt-3">
+                        <ButtonBase
+                            action={ACTION_KEY.REGISTER}
+                            className="flex w-full justify-center rounded-md bg-blue-400 px-3 py-1.5 font-semibold leading-6 text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
                             onClick={registerUser}
                         />
                     </div>

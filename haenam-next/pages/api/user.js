@@ -14,10 +14,11 @@ export default async function handler({ method, body }, response) {
             }
 
             // 암호화
-            const hash = await bcrypt.hash(body.password, 10);
-            body.password = hash;
-
-            const result = await userCollection.insertOne(body);
+            const hash = await bcrypt.hash(password, 10);
+            const result = await userCollection.insertOne({
+                email,
+                password: hash,
+            });
             return response.status(200).json(result);
         } catch (error) {
             return response.status(500).json("에러났다.");
