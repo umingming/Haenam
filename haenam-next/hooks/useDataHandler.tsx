@@ -24,7 +24,7 @@ export function useFetchData() {
             alert(await response.json());
             return null;
         }
-        
+
         return await response.json();
     }
 
