@@ -6,6 +6,7 @@ import { InputGroup } from "@/components/common/input";
 import { ButtonBase } from "@/components/common/button";
 import { ACTION_KEY } from "@/constants/keyConstants";
 
+import { useRouter } from "next/navigation";
 import { useInputHandler } from "@/hooks/useUIHandler";
 import { useFetchData } from "@/hooks/useDataHandler";
 
@@ -17,6 +18,7 @@ export default function Auth() {
         handleValue: handlePassword,
     } = useInputHandler();
 
+    const router = useRouter();
     const { createData } = useFetchData();
 
     async function registerUser() {
@@ -35,6 +37,9 @@ export default function Auth() {
         });
         if (result) {
             alert("로그인 성공!");
+            const url = "/main";
+            router.prefetch(url);
+            router.push(url);
         }
     }
 

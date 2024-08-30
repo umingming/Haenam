@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import "./globals.css";
 import "@/public/css/style.css";
 
